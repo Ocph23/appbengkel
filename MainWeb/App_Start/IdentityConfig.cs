@@ -120,7 +120,7 @@ namespace MainWeb
 
            // var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
 
-            var manager = new ApplicationUserManager(new MySqlUserStore<ApplicationUser>("Default"));
+            var manager = new ApplicationUserManager(new MySqlUserStore<ApplicationUser>("DefaultConnection"));
 
             // Configure validation logic for usernames
 
