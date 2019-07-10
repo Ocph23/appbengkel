@@ -127,11 +127,9 @@ namespace MainWeb
 
 
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
-
             {
 
                 AllowOnlyAlphanumericUserNames = false,
-
                 RequireUniqueEmail = true
 
             };
