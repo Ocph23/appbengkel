@@ -195,11 +195,18 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BarangController.cs" />
     <Compile Include="Controllers\ErrorHandlerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MontirController.cs" />
+    <Compile Include="Controllers\PelangganController.cs" />
+    <Compile Include="Controllers\PenjualanController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\SupplierTestController.cs" />
     <Compile Include="DataAccess\Contexts\BarangContext.cs" />
+    <Compile Include="DataAccess\Contexts\PelangganContext.cs" />
+    <Compile Include="DataAccess\Contexts\PenjualanContext.cs" />
     <Compile Include="DataAccess\Contexts\SupplierContext.cs" />
     <Compile Include="DataAccess\Dto\SupplierDTO1.cs" />
     <Compile Include="DataAccess\IDataContext.cs" />
@@ -280,6 +287,16 @@
     <Content Include="Views\ErrorHandler\Index.cshtml" />
     <Content Include="Views\SupplierTest\Index.cshtml" />
     <Content Include="Views\SupplierTest\Create.cshtml" />
+    <Content Include="Views\Barang\Create.cshtml" />
+    <Content Include="Views\Barang\Index.cshtml" />
+    <Content Include="Views\Montir\Create.cshtml" />
+    <Content Include="Views\Montir\Index.cshtml" />
+    <Content Include="Views\Pelanggan\Create.cshtml" />
+    <Content Include="Views\Pelanggan\Index.cshtml" />
+    <Content Include="Views\Penjualan\Create.cshtml" />
+    <Content Include="Views\Penjualan\Index.cshtml" />
+    <Content Include="Views\Supplier\Create.cshtml" />
+    <Content Include="Views\Supplier\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

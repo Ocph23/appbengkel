@@ -15,7 +15,7 @@ namespace MainWeb.DataAccess
 
         T Update(T item);
 
-        bool Delete(object Id);
+        bool Delete(int Id);
 
 
 

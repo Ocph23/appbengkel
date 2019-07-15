@@ -9,17 +9,17 @@ namespace MainWeb.DataAccess.Contexts
     public class PenjualanContext : IDataContext<Models.Penjualan>
     {
         private static List<Penjualan> list = new List<Penjualan>();
-        public bool Delete(object Id)
+        public bool Delete(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Penjualan> Get()
+        public IEnumerable<Penjualan> Get()
         {
-            return list;
+            throw new NotImplementedException();
         }
 
-        public Penjualan GetById(object Id)
+        public Penjualan GetById(int Id)
         {
             throw new NotImplementedException();
         }
@@ -34,5 +34,6 @@ namespace MainWeb.DataAccess.Contexts
         {
             throw new NotImplementedException();
         }
+
     }
 }

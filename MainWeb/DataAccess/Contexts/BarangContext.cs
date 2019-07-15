@@ -9,14 +9,15 @@ namespace MainWeb.DataAccess.Contexts
     public class BarangContext : IDataContext<Barang>
     {
         public static List<Barang> list = new List<Barang>();
-        public bool Delete(object Id)
+
+        public bool Delete(int Id)
         {
             throw new NotImplementedException();
         }
 
         public IEnumerable<Barang> Get()
         {
-            return list;
+            throw new NotImplementedException();
         }
 
         public Barang GetById(int Id)
@@ -26,8 +27,7 @@ namespace MainWeb.DataAccess.Contexts
 
         public Barang Insert(Barang item)
         {
-            list.Add(item);
-            return item;
+            throw new NotImplementedException();
         }
 
         public Barang Update(Barang item)
