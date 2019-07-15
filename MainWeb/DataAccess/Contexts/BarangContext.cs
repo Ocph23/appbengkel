@@ -14,12 +14,12 @@ namespace MainWeb.DataAccess.Contexts
             throw new NotImplementedException();
         }
 
-        public List<Barang> Get()
+        public IEnumerable<Barang> Get()
         {
             return list;
         }
 
-        public Barang GetById(object Id)
+        public Barang GetById(int Id)
         {
             throw new NotImplementedException();
         }

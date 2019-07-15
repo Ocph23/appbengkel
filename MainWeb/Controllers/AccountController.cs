@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MainWeb.Models;
+using MySql.AspNet.Identity;
 
 namespace MainWeb.Controllers
 {
@@ -17,6 +18,7 @@ namespace MainWeb.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
 
         public AccountController()
         {
@@ -52,6 +54,22 @@ namespace MainWeb.Controllers
             }
         }
 
+
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
+
+
+
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -76,6 +94,7 @@ namespace MainWeb.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -85,9 +104,39 @@ namespace MainWeb.Controllers
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
+
                 default:
+                    CreateAdminUser();
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
+            }
+        }
+
+        private async void CreateAdminUser()
+        {
+            try
+            {
+                var admin = await UserManager.FindByEmailAsync("ocph23.test@gmail.com");
+                if (admin == null)
+                {
+                    var user = new ApplicationUser { UserName = "ocph23.test@gmail.com", Email = "ocph23.test@gmail.com", };
+                    var created = await UserManager.CreateAsync(user, "Password@123");
+                    string roleName = "Administrator";
+                    if (created.Succeeded)
+                    {
+                        if (!await RoleManager.RoleExistsAsync(roleName))
+                        {
+                            var role = new IdentityRole();
+                            role.Name = roleName;
+                            var roleCreated =  RoleManager.Create(role);
+                        }
+                    }
+                    await UserManager.AddToRoleAsync(user.Id, roleName);
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Create Admin error");
             }
         }
 
@@ -116,10 +165,6 @@ namespace MainWeb.Controllers
                 return View(model);
             }
 
-            // The following code protects for brute force attacks against the two factor codes. 
-            // If a user enters incorrect codes for a specified amount of time then the user account 
-            // will be locked out for a specified amount of time. 
-            // You can configure the account lockout settings in IdentityConfig
             var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
@@ -136,7 +181,7 @@ namespace MainWeb.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles ="Administrator")]
         public ActionResult Register()
         {
             return View();
@@ -205,16 +250,13 @@ namespace MainWeb.Controllers
                 var user = await UserManager.FindByNameAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
