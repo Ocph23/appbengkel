@@ -13,7 +13,7 @@ namespace MainWeb.DataAccess.Contexts
             throw new NotImplementedException();
         }
 
-        public List<Barang> Get()
+        public IEnumerable<Barang> Get()
         {
             throw new NotImplementedException();
         }

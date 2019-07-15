@@ -8,7 +8,7 @@ namespace MainWeb.DataAccess
 {
     public interface IDataContext<T>
     {
-        List<T> Get();
+        IEnumerable<T> Get();
 
         T GetById(object Id);
         T Insert(T item);
