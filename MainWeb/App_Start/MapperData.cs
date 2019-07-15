@@ -15,8 +15,8 @@ namespace MainWeb
         {
 
             var cfg = new MapperConfigurationExpression();
-            cfg.CreateMap<Supplier,SupplierDTO>();
-            cfg.CreateMap<SupplierDTO, Supplier>();
+            cfg.CreateMap<Supplier,SupplierDTO1>();
+            cfg.CreateMap<SupplierDTO1, Supplier>();
 
 
 

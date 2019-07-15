@@ -7,13 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainWeb", "MainWeb\MainWeb.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySql.AspNet.Identity", "MySql.AspNet.Identity\MySql.AspNet.Identity.csproj", "{EC3ADD94-5E1D-4A5F-BE06-788AC6C0E252}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Ocph.DAL.Source", "Ocph.DAL\Ocph.DAL.Source.shproj", "{FE4BE3BE-C5CF-4E3F-B710-E5FFF9D4D172}"
-EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Ocph.DAL\Ocph.DAL.projitems*{b274309a-813f-4f7b-b86a-589dab948492}*SharedItemsImports = 4
-		Ocph.DAL\Ocph.DAL.projitems*{fe4be3be-c5cf-4e3f-b710-e5fff9d4d172}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

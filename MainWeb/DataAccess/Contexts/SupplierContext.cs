@@ -32,11 +32,11 @@ namespace MainWeb.DataAccess.Contexts
             return SupplierData;
         }
 
-        public Supplier GetById(int Id)
+        public Supplier GetById(object Id)
         {
             using (var db = new OcphDbContext())
             {
-                var result = db.Supplier.Where(x=>x.IdSupplier== Id).FirstOrDefault();
+                var result = db.Supplier.Where(x=>x.Id== Id).FirstOrDefault();
                 return MapperData.Mapper.Map<Supplier>(result);
             }
         }
@@ -45,7 +45,7 @@ namespace MainWeb.DataAccess.Contexts
         {
             using (var db = new OcphDbContext())
             {
-                item.IdSupplier= db.Supplier.InsertAndGetLastID(MapperData.Mapper.Map<SupplierDTO>(item));
+                item.IdSupplier= db.Supplier.InsertAndGetLastID(MapperData.Mapper.Map<SupplierDTO1>(item));
                 if (item.IdSupplier == 0)
                     throw new SystemException("Data Tidak Tersimpan");
                 else
@@ -57,7 +57,7 @@ namespace MainWeb.DataAccess.Contexts
         {
             using (var db = new OcphDbContext())
             {
-                var result = db.Supplier.Delete(x => x.IdSupplier== item.IdSupplier);
+                var result = db.Supplier.Delete(x => x.Id == item.IdSupplier as object);
                 return MapperData.Mapper.Map<Supplier>(result);
             }
         }
