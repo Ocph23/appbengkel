@@ -8,6 +8,7 @@ namespace MainWeb.DataAccess.Contexts
 {
     public class SupplierContext : IDataContext<Models.Supplier>
     {
+        private static List<Supplier> list = new List<Supplier>();
         public bool Delete(object Id)
         {
             throw new NotImplementedException();
@@ -15,7 +16,7 @@ namespace MainWeb.DataAccess.Contexts
 
         public List<Supplier> Get()
         {
-            throw new NotImplementedException();
+            return list;
         }
 
         public Supplier GetById(object Id)
@@ -25,7 +26,8 @@ namespace MainWeb.DataAccess.Contexts
 
         public Supplier Insert(Supplier item)
         {
-            throw new NotImplementedException();
+            list.Add(item);
+            return item;
         }
 
         public Supplier Update(Supplier item)

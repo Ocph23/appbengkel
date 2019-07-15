@@ -189,10 +189,19 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BarangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MontirController.cs" />
+    <Compile Include="Controllers\PelangganController.cs" />
+    <Compile Include="Controllers\PenjualanController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="DataAccess\Contexts\BarangContext.cs" />
+    <Compile Include="DataAccess\Contexts\PelangganContext.cs" />
+    <Compile Include="DataAccess\Contexts\PenjualanContext.cs" />
     <Compile Include="DataAccess\Contexts\SupplierContext.cs" />
+    <Compile Include="DataAccess\Dto\BarangDTO.cs" />
+    <Compile Include="DataAccess\Dto\SuplierDTO.cs" />
     <Compile Include="DataAccess\IDataContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -201,9 +210,11 @@
     <Compile Include="Models\Barang.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Kategori.cs" />
+    <Compile Include="Models\Laporan.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Montir.cs" />
     <Compile Include="Models\Pelanggan.cs" />
+    <Compile Include="Models\Pembelian.cs" />
     <Compile Include="Models\Penjualan.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -265,10 +276,19 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Montir\Create.cshtml" />
+    <Content Include="Views\Supplier\Index.cshtml" />
+    <Content Include="Views\Montir\Index.cshtml" />
+    <Content Include="Views\Barang\Create.cshtml" />
+    <Content Include="Views\Barang\Index.cshtml" />
+    <Content Include="Views\Supplier\Create.cshtml" />
+    <Content Include="Views\Pelanggan\Index.cshtml" />
+    <Content Include="Views\Pelanggan\Create.cshtml" />
+    <Content Include="Views\Penjualan\Index.cshtml" />
+    <Content Include="Views\Penjualan\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DataAccess\Dto\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

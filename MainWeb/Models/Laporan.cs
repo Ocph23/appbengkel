@@ -6,18 +6,21 @@ using System.Web;
 
 namespace MainWeb.Models
 {
-    public class Montir
+    public class Laporan
     {
-        [ScaffoldColumn(false)]
-        public int IdMontir { get; set; }
+        public DateTime Tanggal { get; set; }
 
         [Required(ErrorMessage ="Tidak Boleh Kosong")]
-        public string NamaMontir { get; set; }
+        public string NamaBarang { get; set; }
 
         [Required(ErrorMessage ="Tidak Boleh Kosong")]
-        public string Alamat { get; set; }
+        public string NamaPelanggan { get; set; }
 
         [Required(ErrorMessage ="Tidak Boleh Kosong")]
-        public string NoTelpon { get; set; }
+        public string HargaSatuan { get; set; }
+
+        [Required(ErrorMessage = "Tidak Boleh Kosong")]
+        public string TotalBayar { get; set; }
+
     }
 }
