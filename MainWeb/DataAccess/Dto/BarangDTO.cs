@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace MainWeb.Models
+namespace MainWeb.DataAccess.Dto
 {
-    public class Barang
+    [TableName("")]
+    public class BarangDTO
     {
-        [ScaffoldColumn(false)]
         public int IdBarang { get; set; }
-
-        [Required(ErrorMessage ="Tidak Boleh Kosong")]
         public string Namabarang { get; set; }
     }
 }
