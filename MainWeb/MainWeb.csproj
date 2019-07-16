@@ -208,8 +208,16 @@
     <Compile Include="DataAccess\Contexts\PelangganContext.cs" />
     <Compile Include="DataAccess\Contexts\PenjualanContext.cs" />
     <Compile Include="DataAccess\Contexts\SupplierContext.cs" />
-    <Compile Include="DataAccess\Dto\SupplierDTO1.cs" />
+    <Compile Include="DataAccess\Dto\Barang.cs" />
+    <Compile Include="DataAccess\Dto\ItemPenjualanDto.cs" />
+    <Compile Include="DataAccess\Dto\Kategori.cs" />
+    <Compile Include="DataAccess\Dto\Montir.cs" />
+    <Compile Include="DataAccess\Dto\Pelanggan.cs" />
+    <Compile Include="DataAccess\Dto\PembelianDto.cs" />
+    <Compile Include="DataAccess\Dto\Penjualan.cs" />
+    <Compile Include="DataAccess\Dto\Supplier.cs" />
     <Compile Include="DataAccess\IDataContext.cs" />
+    <Compile Include="EnumCollection.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -13,7 +13,7 @@ namespace MainWeb
         }
 
 
-        public IRepository<SupplierDTO1> Supplier { get { return new Repository<SupplierDTO1>(this); } }
+        public IRepository<SupplierDto> Supplier { get { return new Repository<SupplierDto>(this); } }
 
     }
 }
