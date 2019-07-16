@@ -16,7 +16,7 @@ namespace MainWeb.DataAccess.Contexts
 
         public IEnumerable<Penjualan> Get()
         {
-            throw new NotImplementedException();
+            return new List<Penjualan>();
         }
 
         public Penjualan GetById(int Id)

@@ -205,6 +205,7 @@
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\SupplierTestController.cs" />
     <Compile Include="DataAccess\Contexts\BarangContext.cs" />
+    <Compile Include="DataAccess\Contexts\MontirContext.cs" />
     <Compile Include="DataAccess\Contexts\PelangganContext.cs" />
     <Compile Include="DataAccess\Contexts\PenjualanContext.cs" />
     <Compile Include="DataAccess\Contexts\SupplierContext.cs" />
@@ -289,14 +290,14 @@
     <Content Include="Views\SupplierTest\Create.cshtml" />
     <Content Include="Views\Barang\Create.cshtml" />
     <Content Include="Views\Barang\Index.cshtml" />
-    <Content Include="Views\Montir\Create.cshtml" />
     <Content Include="Views\Montir\Index.cshtml" />
-    <Content Include="Views\Pelanggan\Create.cshtml" />
     <Content Include="Views\Pelanggan\Index.cshtml" />
     <Content Include="Views\Penjualan\Create.cshtml" />
     <Content Include="Views\Penjualan\Index.cshtml" />
     <Content Include="Views\Supplier\Create.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
+    <Content Include="Views\Pelanggan\Create.cshtml" />
+    <Content Include="Views\Montir\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
