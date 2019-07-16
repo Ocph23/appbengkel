@@ -6,7 +6,7 @@ using MainWeb.Models;
 
 namespace MainWeb.DataAccess.Contexts
 {
-    public class MontirContext : IDataContext<Models.Montir>
+    public class MontirContext : IDataContext<Montir>
     {
         private static List<Montir> list = new List<Montir>();
         public bool Delete(int Id)
@@ -16,7 +16,7 @@ namespace MainWeb.DataAccess.Contexts
 
         public IEnumerable<Montir> Get()
         {
-            return new List<Montir>();
+            return list;
         }
 
         public Montir GetById(int Id)

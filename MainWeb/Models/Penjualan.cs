@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MainWeb.DataAccess.Dto;
+using Ocph.DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,27 +8,25 @@ using System.Web;
 
 namespace MainWeb.Models
 {
+    [TableName("Penjualan")]
     public class Penjualan
     {
+        [PrimaryKey("IdPenjualan")]
+        [DbColumn("IdPenjualan")]
         [ScaffoldColumn(false)]
         public int IdPenjualan { get; set; }
 
-        [Required(ErrorMessage ="Tidak Boleh Kosong")]
-        public string NoNota { get; set; }
+        [DbColumn("FakturPenjualan")]
+        public string FakturPenjualan { get; set; }
 
-        [Required(ErrorMessage = "Tidak Boleh Kosong")]
-        public string NamaPelanggan { get; set; }
+        [DbColumn("IdPelanggan")]
+        public int? IdPelanggan { get; set; }
 
-        [Required(ErrorMessage = "Tidak Boleh Kosong")]
+        [DbColumn("TanggalJual")]
         public string TanggalJual { get; set; }
 
-        [Required(ErrorMessage = "Tidak Boleh Kosong")]
-        public string NamaBarang { get; set; }
+        public PelangganDto Pelanggan { get; set; }
 
-        [Required(ErrorMessage ="Tidak Boleh Kosong")]
-        public string NamaMontir { get; set; }
-
-        [Required(ErrorMessage = "Tidak Boleh Kosong")]
-        public string HargaJual { get; set; }
+        public List<ItemPenjualanDto> DataPenjualan { get; set; }
     }
 }

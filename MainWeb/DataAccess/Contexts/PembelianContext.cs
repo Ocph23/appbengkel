@@ -1,34 +1,35 @@
-﻿using System;
+﻿using MainWeb.Models;
+using System;
 using System.Collections.Generic;
-using MainWeb.Models;
+using System.Linq;
+using System.Web;
 
 namespace MainWeb.DataAccess.Contexts
 {
-    public class SupplierContext : IDataContext<Supplier>
+    public class PembelianContext : IDataContext<Pembelian>
     {
-        private static List<Supplier> list = new List<Supplier>();
-
+        private static List<Pembelian> list = new List<Pembelian>();
         public bool Delete(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Supplier> Get()
+        public IEnumerable<Pembelian> Get()
         {
             return list;
         }
 
-        public Supplier GetById(int Id)
+        public Pembelian GetById(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public Supplier Insert(Supplier item)
+        public Pembelian Insert(Pembelian item)
         {
             throw new NotImplementedException();
         }
 
-        public Supplier Update(Supplier item)
+        public Pembelian Update(Pembelian item)
         {
             throw new NotImplementedException();
         }

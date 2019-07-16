@@ -6,7 +6,7 @@ using MainWeb.Models;
 
 namespace MainWeb.DataAccess.Contexts
 {
-    public class PenjualanContext : IDataContext<Models.Penjualan>
+    public class PenjualanContext : IDataContext<Penjualan>
     {
         private static List<Penjualan> list = new List<Penjualan>();
         public bool Delete(int Id)
@@ -16,7 +16,7 @@ namespace MainWeb.DataAccess.Contexts
 
         public IEnumerable<Penjualan> Get()
         {
-            return new List<Penjualan>();
+            return list;
         }
 
         public Penjualan GetById(int Id)

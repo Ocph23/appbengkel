@@ -1,34 +1,35 @@
-﻿using System;
+﻿using MainWeb.Models;
+using System;
 using System.Collections.Generic;
-using MainWeb.Models;
+using System.Linq;
+using System.Web;
 
 namespace MainWeb.DataAccess.Contexts
 {
-    public class SupplierContext : IDataContext<Supplier>
+    public class ItemPenjualanContext : IDataContext<ItemPenjualan>
     {
-        private static List<Supplier> list = new List<Supplier>();
-
+        private static List<ItemPenjualan> list = new List<ItemPenjualan>();
         public bool Delete(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Supplier> Get()
+        public IEnumerable<ItemPenjualan> Get()
         {
             return list;
         }
 
-        public Supplier GetById(int Id)
+        public ItemPenjualan GetById(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public Supplier Insert(Supplier item)
+        public ItemPenjualan Insert(ItemPenjualan item)
         {
             throw new NotImplementedException();
         }
 
-        public Supplier Update(Supplier item)
+        public ItemPenjualan Update(ItemPenjualan item)
         {
             throw new NotImplementedException();
         }
