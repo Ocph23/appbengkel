@@ -9,11 +9,10 @@ namespace MainWeb.Controllers
 {
     public class KategoriController : Controller
     {
-        private KategoriContext kategoriContext = new KategoriContext();
         // GET: Kategori
         public ActionResult Index()
         {
-            return View(kategoriContext.Get());
+            return View();
         }
 
         // GET: Kategori/Details/5

@@ -9,11 +9,10 @@ namespace MainWeb.Controllers
 {
     public class MontirController : Controller
     {
-        private MontirContext montirContext = new MontirContext();
         // GET: Montir
         public ActionResult Index()
         {
-            return View(montirContext.Get());
+            return View();
         }
 
         // GET: Montir/Details/5

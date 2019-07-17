@@ -1,5 +1,4 @@
 ﻿using Ocph.DAL;
-using System.ComponentModel.DataAnnotations;
 
 namespace MainWeb.DataAccess.Dto
 {
@@ -13,10 +12,10 @@ namespace MainWeb.DataAccess.Dto
         [DbColumn("NamaSupplier")]
         public string NamaSupplier { get; set; }
 
-        [DbColumn("Alamat")]
+        [DbColumn("AlamatSupplier")]
         public string Alamat { get; set; }
 
-        [DbColumn("NoTelepon")]
+        [DbColumn("NoTelpon")]
         public string NoTelpon { get; set; }
     }
 }

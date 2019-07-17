@@ -97,7 +97,7 @@ namespace MainWeb.DataAccess.Contexts
                     throw new SystemException();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw new SystemException("Data Tidak Tersimpan");
             }

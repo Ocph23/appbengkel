@@ -9,11 +9,10 @@ namespace MainWeb.Controllers
 {
     public class ItemPenjualanController : Controller
     {
-        private ItemPenjualanContext itemPenjualanContext = new ItemPenjualanContext();
         // GET: ItemPenjualan
         public ActionResult Index()
         {
-            return View(itemPenjualanContext.Get());
+            return View();
         }
 
         // GET: ItemPenjualan/Details/5
