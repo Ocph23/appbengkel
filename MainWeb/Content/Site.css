@@ -1,5 +1,4 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
 }
 
@@ -8,7 +7,7 @@
     padding-left: 15px;
     padding-right: 15px;
 }
-
+    
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -21,4 +20,31 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+
+
+@media (max-width: 500px) {
+    .auth {
+        margin: auto;
+        width: 100% !important;
+        padding: 15px;
+    }
+}
+
+
+.auth{
+    margin:auto;
+    width:50%;
+    padding:15px;
+}
+
+
+
+@media (min-width: 1024px) {
+    .auth {
+        margin: auto;
+        width: 30% !important;
+        padding: 15px;
+    }
 }

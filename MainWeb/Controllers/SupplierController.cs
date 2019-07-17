@@ -17,7 +17,8 @@ namespace MainWeb.Controllers
         // GET: Supplier/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var data = this.suplierContext.GetById(id);
+            return View(data);
         }
 
         // GET: Supplier/Create
@@ -35,13 +36,13 @@ namespace MainWeb.Controllers
                 
                 if(suplierContext.Insert(item)!=null)
                 {
-                    //Seksus
+
+                    return RedirectToAction("Index");
                 }
                 else
                 {
 
                 }
-
                 return RedirectToAction("Index");
             }
             catch
@@ -53,16 +54,18 @@ namespace MainWeb.Controllers
         // GET: Supplier/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var data = this.suplierContext.GetById(id);
+            return View(data);
         }
 
         // POST: Supplier/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Supplier collection)
         {
             try
             {
-                // TODO: Add update logic here
+                collection.IdSupplier = id;
+                this.suplierContext.Update(collection);
 
                 return RedirectToAction("Index");
             }
@@ -75,12 +78,13 @@ namespace MainWeb.Controllers
         // GET: Supplier/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var data = this.suplierContext.Delete(id);
+            return RedirectToAction("Index");
         }
 
         // POST: Supplier/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Supplier collection)
         {
             try
             {

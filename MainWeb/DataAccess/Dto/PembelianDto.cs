@@ -1,5 +1,6 @@
 ﻿using Ocph.DAL;
 using System;
+using System.Collections.Generic;
 
 namespace MainWeb.DataAccess.Dto
 {
@@ -27,6 +28,8 @@ namespace MainWeb.DataAccess.Dto
         public string UserId { get; set; }
 
         public SupplierDto Supplier { get; set; }
+
+        public List<ItemPembelianDto> Data {get;set;}
 
     }
 }

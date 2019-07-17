@@ -206,9 +206,11 @@
     <Compile Include="Controllers\SupplierTestController.cs" />
     <Compile Include="DataAccess\Contexts\BarangContext.cs" />
     <Compile Include="DataAccess\Contexts\PelangganContext.cs" />
+    <Compile Include="DataAccess\Contexts\PembelianContext.cs" />
     <Compile Include="DataAccess\Contexts\PenjualanContext.cs" />
     <Compile Include="DataAccess\Contexts\SupplierContext.cs" />
     <Compile Include="DataAccess\Dto\Barang.cs" />
+    <Compile Include="DataAccess\Dto\ItemPembelianDto.cs" />
     <Compile Include="DataAccess\Dto\ItemPenjualanDto.cs" />
     <Compile Include="DataAccess\Dto\Kategori.cs" />
     <Compile Include="DataAccess\Dto\Montir.cs" />
@@ -224,10 +226,12 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Barang.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ItemPembelian.cs" />
     <Compile Include="Models\Kategori.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Montir.cs" />
     <Compile Include="Models\Pelanggan.cs" />
+    <Compile Include="Models\Pembelian.cs" />
     <Compile Include="Models\Penjualan.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="OcphDbContext.cs" />
@@ -256,6 +260,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Content\style5.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -305,6 +310,10 @@
     <Content Include="Views\Penjualan\Index.cshtml" />
     <Content Include="Views\Supplier\Create.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
+    <Content Include="Views\Shared\_Auth.cshtml" />
+    <Content Include="Views\Shared\xxx.cshtml" />
+    <Content Include="Views\Supplier\Details.cshtml" />
+    <Content Include="Views\Supplier\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
