@@ -12,22 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NoNota)
+            @Html.DisplayNameFor(model => model.FakturPenjualan)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NamaPelanggan)
+            @Html.DisplayNameFor(model => model.IdPelanggan)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TanggalJual)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NamaBarang)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NamaMontir)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HargaJual)
         </th>
         <th></th>
     </tr>
@@ -35,22 +26,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.NoNota)
+            @Html.DisplayFor(modelItem => item.FakturPenjualan)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NamaPelanggan)
+            @Html.DisplayFor(modelItem => item.IdPelanggan)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TanggalJual)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NamaBarang)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NamaMontir)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HargaJual)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

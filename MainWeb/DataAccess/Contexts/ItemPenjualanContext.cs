@@ -6,30 +6,30 @@ using System.Web;
 
 namespace MainWeb.DataAccess.Contexts
 {
-    public class PelangganContext : IDataContext<Pelanggan>
+    public class ItemPenjualanContext : IDataContext<ItemPenjualan>
     {
-        private static List<Pelanggan> list = new List<Pelanggan>();
+        private static List<ItemPenjualan> list = new List<ItemPenjualan>();
         public bool Delete(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Pelanggan> Get()
+        public IEnumerable<ItemPenjualan> Get()
         {
-            return new List<Pelanggan>();
+            return list;
         }
 
-        public Pelanggan GetById(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Pelanggan Insert(Pelanggan item)
+        public ItemPenjualan GetById(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public Pelanggan Update(Pelanggan item)
+        public ItemPenjualan Insert(ItemPenjualan item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ItemPenjualan Update(ItemPenjualan item)
         {
             throw new NotImplementedException();
         }

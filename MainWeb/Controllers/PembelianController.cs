@@ -7,28 +7,28 @@ using System.Web.Mvc;
 
 namespace MainWeb.Controllers
 {
-    public class MontirController : Controller
+    public class PembelianController : Controller
     {
-        private MontirContext montirContext = new MontirContext();
-        // GET: Montir
+        private PembelianContext pembelianContext = new PembelianContext();
+        // GET: Pembelian
         public ActionResult Index()
         {
-            return View(montirContext.Get());
+            return View(pembelianContext.Get());
         }
 
-        // GET: Montir/Details/5
+        // GET: Pembelian/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Montir/Create
+        // GET: Pembelian/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Montir/Create
+        // POST: Pembelian/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -44,13 +44,13 @@ namespace MainWeb.Controllers
             }
         }
 
-        // GET: Montir/Edit/5
+        // GET: Pembelian/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Montir/Edit/5
+        // POST: Pembelian/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -66,13 +66,13 @@ namespace MainWeb.Controllers
             }
         }
 
-        // GET: Montir/Delete/5
+        // GET: Pembelian/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Montir/Delete/5
+        // POST: Pembelian/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

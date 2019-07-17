@@ -17,7 +17,7 @@ namespace MainWeb.DataAccess.Contexts
 
         public IEnumerable<Barang> Get()
         {
-            throw new NotImplementedException();
+            return list;
         }
 
         public Barang GetById(int Id)

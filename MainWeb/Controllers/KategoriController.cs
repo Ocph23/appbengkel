@@ -7,28 +7,28 @@ using System.Web.Mvc;
 
 namespace MainWeb.Controllers
 {
-    public class MontirController : Controller
+    public class KategoriController : Controller
     {
-        private MontirContext montirContext = new MontirContext();
-        // GET: Montir
+        private KategoriContext kategoriContext = new KategoriContext();
+        // GET: Kategori
         public ActionResult Index()
         {
-            return View(montirContext.Get());
+            return View(kategoriContext.Get());
         }
 
-        // GET: Montir/Details/5
+        // GET: Kategori/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Montir/Create
+        // GET: Kategori/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Montir/Create
+        // POST: Kategori/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -44,13 +44,13 @@ namespace MainWeb.Controllers
             }
         }
 
-        // GET: Montir/Edit/5
+        // GET: Kategori/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Montir/Edit/5
+        // POST: Kategori/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -66,13 +66,13 @@ namespace MainWeb.Controllers
             }
         }
 
-        // GET: Montir/Delete/5
+        // GET: Kategori/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Montir/Delete/5
+        // POST: Kategori/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

@@ -7,29 +7,28 @@ using System.Web.Mvc;
 
 namespace MainWeb.Controllers
 {
-    public class SupplierTestController : Controller
+    public class ItemPenjualanController : Controller
     {
-
-        SupplierContext context = new SupplierContext();
-        // GET: SupplierTest
+        private ItemPenjualanContext itemPenjualanContext = new ItemPenjualanContext();
+        // GET: ItemPenjualan
         public ActionResult Index()
         {
-            return View(context.Get());
+            return View(itemPenjualanContext.Get());
         }
 
-        // GET: SupplierTest/Details/5
+        // GET: ItemPenjualan/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: SupplierTest/Create
+        // GET: ItemPenjualan/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: SupplierTest/Create
+        // POST: ItemPenjualan/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -45,13 +44,13 @@ namespace MainWeb.Controllers
             }
         }
 
-        // GET: SupplierTest/Edit/5
+        // GET: ItemPenjualan/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: SupplierTest/Edit/5
+        // POST: ItemPenjualan/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -67,13 +66,13 @@ namespace MainWeb.Controllers
             }
         }
 
-        // GET: SupplierTest/Delete/5
+        // GET: ItemPenjualan/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: SupplierTest/Delete/5
+        // POST: ItemPenjualan/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

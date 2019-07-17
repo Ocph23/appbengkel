@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MainWeb.DataAccess.Contexts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,11 @@ namespace MainWeb.Controllers
 {
     public class BarangController : Controller
     {
+        private BarangContext barangContext = new BarangContext();
         // GET: Barang
         public ActionResult Index()
         {
-            return View();
+            return View(barangContext.Get());
         }
 
         // GET: Barang/Details/5

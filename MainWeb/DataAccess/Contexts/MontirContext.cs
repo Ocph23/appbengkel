@@ -6,34 +6,32 @@ using MainWeb.Models;
 
 namespace MainWeb.DataAccess.Contexts
 {
-    public class PenjualanContext : IDataContext<Penjualan>
+    public class MontirContext : IDataContext<Montir>
     {
-        private static List<Penjualan> list = new List<Penjualan>();
+        private static List<Montir> list = new List<Montir>();
         public bool Delete(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Penjualan> Get()
+        public IEnumerable<Montir> Get()
         {
             return list;
         }
 
-        public Penjualan GetById(int Id)
+        public Montir GetById(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public Penjualan Insert(Penjualan item)
-        {
-            list.Add(item);
-            return item;
-        }
-
-        public Penjualan Update(Penjualan item)
+        public Montir Insert(Montir item)
         {
             throw new NotImplementedException();
         }
 
+        public Montir Update(Montir item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
