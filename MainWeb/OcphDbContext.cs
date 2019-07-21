@@ -19,6 +19,11 @@ namespace MainWeb
         public IRepository<PembelianDto> Pembelian { get { return new Repository<PembelianDto>(this); } }
 
         public IRepository<PenjualanDto> Penjualan { get { return new Repository<PenjualanDto>(this); } }
+
         public IRepository<PelangganDto> Pelanggan { get { return new Repository<PelangganDto>(this); } }
+
+        public IRepository<BarangDto> Barang { get { return new Repository<BarangDto>(this); } }
+
+        public IRepository<KategoriDto> Kategori { get { return new Repository<KategoriDto>(this); } }
     }
 }

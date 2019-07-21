@@ -1,4 +1,5 @@
 ﻿using MainWeb.DataAccess.Contexts;
+using MainWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,17 +26,18 @@ namespace MainWeb.Controllers
         // GET: Barang/Create
         public ActionResult Create()
         {
+            var data= from a in barangContext.GetKategories() select new SelectListItem { Value=a.IdKategori.ToString(), Text=a.NamaKategori };
+            ViewBag.DataKategori = data;
             return View();
         }
 
         // POST: Barang/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Barang data)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                barangContext.Insert(data);
                 return RedirectToAction("Index");
             }
             catch

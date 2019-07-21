@@ -18,7 +18,7 @@ namespace MainWeb.DataAccess.Dto
         public string NamaBarang { get; set; }
 
         [DbColumn("IdKategori")]
-        public string IdKategori { get; set; }
+        public int IdKategori { get; set; }
 
         public KategoriDto Kategori { get; set; }
     }
