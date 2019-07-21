@@ -1,4 +1,5 @@
-﻿using MainWeb.Models;
+﻿using MainWeb.DataAccess.Dto;
+using MainWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,27 +12,89 @@ namespace MainWeb.DataAccess.Contexts
         private static List<Pelanggan> list = new List<Pelanggan>();
         public bool Delete(int Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var db = new OcphDbContext())
+                {
+                    var deleted = db.Pelanggan.Delete(x => x.IdPelanggan == Id);
+                    if(deleted)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }catch (Exception ex)
+            {
+                throw new SystemException(ex.Message);
+            }
         }
 
         public IEnumerable<Pelanggan> Get()
         {
-            return new List<Pelanggan>();
+            try
+            {
+                using (var db = new OcphDbContext())
+                {
+                    var result = db.Pelanggan.Select();
+                    return MapperData.Mapper.Map<List<Pelanggan>>(result);
+                }
+            }catch (Exception ex)
+            {
+                throw new SystemException(ex.Message);
+            }
         }
 
         public Pelanggan GetById(int Id)
         {
-            throw new NotImplementedException();
+           try
+            {
+                using (var db = new OcphDbContext())
+                {
+                    var result = db.Pelanggan.Where(x=>x.IdPelanggan == Id).FirstOrDefault();
+                    if (result != null)
+                        return MapperData.Mapper.Map<Pelanggan>(result);
+                    throw new SystemException("Data Tidak Ditemukan");
+                }
+            }catch (Exception ex)
+            {
+                throw new SystemException(ex.Message);
+            }
         }
 
         public Pelanggan Insert(Pelanggan item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var db = new OcphDbContext())
+                {
+                    var data = MapperData.Mapper.Map<PelangganDto>(item);
+                    item.IdPelanggan = db.Pelanggan.InsertAndGetLastID(data);
+                    if (item.IdPelanggan > 0)
+                        return item;
+                    throw new SystemException();
+                }
+            }catch (Exception ex)
+            {
+                throw new SystemException("Data Tidak Tersimpan");
+            }
         }
 
         public Pelanggan Update(Pelanggan item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var db = new OcphDbContext())
+                {
+                    var data = MapperData.Mapper.Map<PelangganDto>(item);
+                    var updated = db.Pelanggan.Update(x => new { x.NamaPelanggan, x.Alamat, x.NoTelpon }, data, x => x.IdPelanggan == item.IdPelanggan);
+                    if (updated)
+                        return item;
+                    throw new SystemException();
+                }
+            }catch (Exception ex)
+            {
+                throw new SystemException("Data Tidak Tersimpan");
+            }
         }
     }
 }

@@ -298,11 +298,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\SupplierTest\Details.cshtml" />
     <Content Include="Views\ErrorHandler\NotFound.cshtml" />
     <Content Include="Views\ErrorHandler\Index.cshtml" />
-    <Content Include="Views\SupplierTest\Index.cshtml" />
-    <Content Include="Views\SupplierTest\Create.cshtml" />
     <Content Include="Views\Barang\Create.cshtml" />
     <Content Include="Views\Barang\Index.cshtml" />
     <Content Include="Views\Montir\Create.cshtml" />
@@ -317,6 +314,11 @@
     <Content Include="Views\Shared\xxx.cshtml" />
     <Content Include="Views\Supplier\Details.cshtml" />
     <Content Include="Views\Supplier\Edit.cshtml" />
+    <Content Include="Views\Penjualan\Edit.cshtml" />
+    <Content Include="Views\Penjualan\Details.cshtml" />
+    <Content Include="Views\Pelanggan\Details.cshtml" />
+    <Content Include="Views\Pelanggan\Edit.cshtml" />
+    <Content Include="Views\Pelanggan\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

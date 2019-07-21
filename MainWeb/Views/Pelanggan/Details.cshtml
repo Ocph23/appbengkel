@@ -1,4 +1,4 @@
-﻿@model MainWeb.Models.Supplier
+﻿@model MainWeb.Models.Pelanggan
 
 @{
     ViewBag.Title = "Details";
@@ -7,23 +7,15 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Supplier</h4>
+    <h4>Pelanggan</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.IdSupplier)
+            @Html.DisplayNameFor(model => model.NamaPelanggan)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.IdSupplier)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NamaSupplier)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NamaSupplier)
+            @Html.DisplayFor(model => model.NamaPelanggan)
         </dd>
 
         <dt>

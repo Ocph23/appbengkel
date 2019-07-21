@@ -20,6 +20,7 @@ namespace MainWeb.Controllers
         // GET: Penjualan/Details/5
         public ActionResult Details(int id)
         {
+            var data = this.penjualanContext.GetById(id);
             return View();
         }
 
@@ -35,8 +36,14 @@ namespace MainWeb.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                if(penjualanContext.Insert(item)!=null)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
 
+                }
                 return RedirectToAction("Index");
             }
             catch
@@ -48,16 +55,18 @@ namespace MainWeb.Controllers
         // GET: Penjualan/Edit/5
         public ActionResult Edit(int id)
         {
+            var data = this.penjualanContext.GetById(id);
             return View();
         }
 
         // POST: Penjualan/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Penjualan collection)
         {
             try
             {
-                // TODO: Add update logic here
+                collection.IdPenjualan = id;
+                this.penjualanContext.Update(collection);
 
                 return RedirectToAction("Index");
             }
@@ -70,7 +79,8 @@ namespace MainWeb.Controllers
         // GET: Penjualan/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var data = this.penjualanContext.GetById(id);
+            return RedirectToAction("Index");
         }
 
         // POST: Penjualan/Delete/5

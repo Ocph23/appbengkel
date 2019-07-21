@@ -1,0 +1,42 @@
+﻿@model MainWeb.Models.Penjualan
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Penjualan</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FakturPenjualan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FakturPenjualan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdPelanggan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdPelanggan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TanggalJual)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TanggalJual)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
