@@ -17,7 +17,6 @@
             <div class="sidebar-header">
                 <h3>Bengkel Melati</h3>
             </div>
-
             <ul class="list-unstyled components">
                 @Html.Partial("_LoginPartial")
                 <li class="active">
@@ -39,21 +38,37 @@
                     <a href="/Pelanggan">Pelanggan</a>
                 </li>
                 <li>
-                    <a href="/Barang">Barang</a>
+                    <a href="#barangSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Barang</a>
+                    <ul class="collapse list-unstyled" id="barangSubmenu">
+                        <li>
+                            <a href="/Barang">Dat Barang</a>
+                        </li>
+                        <li>
+                            <a href="/Kategori">Kategori</a>
+                        </li>
+                    </ul>
                 </li>
-               
-
                 <li>
                     <a href="/Supplier">Supplier</a>
                 </li>
-
-
+                <li>
+                    <a href="/Montir">Data Montir</a>
+                </li>
+                <li>
+                    <a href="#transaksi" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Transaksi</a>
+                    <ul class="collapse list-unstyled" id="transaksi">
+                        <li>
+                            <a href="/Pembelian">Pemeblian</a>
+                        </li>
+                        <li>
+                            <a href="/Penjualan">Penjualan</a>
+                        </li>
+                    </ul>
+                </li>
                 <li>
                     <a href="#">Logout</a>
                 </li>
-
             </ul>
-
             <ul class="list-unstyled CTAs">
                 <li>
                     <footer>
@@ -79,7 +94,7 @@
                 </div>
 
             </div>
-            
+
         </div>
     </div>
 
@@ -98,11 +113,11 @@
             });
         });
     </script>
-  
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
 
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/angular.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

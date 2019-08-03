@@ -25,5 +25,7 @@ namespace MainWeb
         public IRepository<BarangDto> Barang { get { return new Repository<BarangDto>(this); } }
 
         public IRepository<KategoriDto> Kategori { get { return new Repository<KategoriDto>(this); } }
+
+        public IRepository<MontirDto> Montir { get { return new Repository<MontirDto>(this); } }
     }
 }

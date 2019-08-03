@@ -4,7 +4,7 @@
     ViewBag.Title = "Log in";
     Layout = "~/Views/Shared/_Auth.cshtml";
 }
-<section id="loginForm">
+<section id="loginForm" ng-app="app" ng-init="Init()" ng-controller="BeerCounter">
     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
@@ -51,3 +51,12 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+
+<script>
+  angular.module('app', [])
+ 
+      .controller('BeerCounter', function ($scope, $locale, $http) {
+        
+});
+</script>

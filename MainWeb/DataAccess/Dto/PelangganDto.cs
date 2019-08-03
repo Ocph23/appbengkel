@@ -13,10 +13,10 @@ namespace MainWeb.DataAccess.Dto
         [DbColumn("NamaPelanggan")]
         public string NamaPelanggan { get; set; }
 
-        [DbColumn("Alamat")]
+        [DbColumn("AlamatPelanggan")]
         public string Alamat { get; set; }
 
-        [DbColumn("NoTelepon")]
+        [DbColumn("NoTelpon")]
         public string NoTelpon { get; set; }
     }
 }

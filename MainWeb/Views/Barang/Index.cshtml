@@ -3,43 +3,105 @@
 @{
     ViewBag.Title = "Daftar Barang";
 }
+    <div ng-app="app" ng-controller="BarangController" ng-init="Init()">
 
-<h2>Index</h2>
+        <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.KodeBarang)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Namabarang)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idKategori)
-        </th>
-        <th></th>
-    </tr>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.KodeBarang)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NamaBarang)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Kategori.NamaKategori)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HargaBeli)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HargaJual)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Stok)
+                </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.KodeBarang)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Namabarang)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idKategori)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+                <th></th>
+            </tr>
 
-</table>
+
+        <tr ng-repeat="item in Datas">
+            <td>
+                {{item.KodeBarang}}
+            </td>
+
+            <td>
+                {{item.NamaBarang}}
+            </td>
+            <td>
+                {{item.Kategori.NamaKategori}}
+            </td>
+            <td>
+                {{item.HargaBeli}}
+            </td>
+            <td>
+                {{item.HargaJual}}
+            </td>
+            <td>
+                {{item.Stok}}
+            </td>
+            <td>
+                <a href="/Barang/Edit/{{item.IdBarang}}">Edit</a>|
+                <a href="/Barang/Details/{{item.IdBarang}}">Details</a>|
+                <a href="/Barang/Delete/{{item.IdBarang}}">Delete</a>
+            </td>
+        </tr>
+
+        </table>
+
+
+
+    </div>
+
+
+    <script src="~/Scripts/angular.js"></script>
+
+<script>
+    angular.module("app", [])
+        .controller("BarangController", function ($scope, $http) {
+            $scope.Datas = [];
+            $scope.Init = function () {
+                var post = $http({
+                    method: "Get",
+                    url: "/Barang/GetBarang",
+                    dataType: 'json',
+                    headers: { "Content-Type": "application/json" }
+                });
+
+                post.then(function (res, status) {
+                    $scope.Datas = res.data;
+
+                }, function (err) {
+
+                });
+            }
+
+            $scope.Delete = function (item) {
+                $http({
+                    method: "Get",
+                    url: "/Barang/Delete/" + item.IdBarang,
+                    dataType: 'json',
+                    headers: { "Content-Type": "application/json" }
+                }).then(function (res, data) {
+
+                }, function (err) {
+
+                });
+            };
+        });
+</script>

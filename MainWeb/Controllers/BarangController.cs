@@ -14,20 +14,28 @@ namespace MainWeb.Controllers
         // GET: Barang
         public ActionResult Index()
         {
-            return View(barangContext.Get());
+            IEnumerable<Barang> result = barangContext.Get();
+            return View(result);
+        }
+
+        public JsonResult GetBarang()
+        {
+            var result= Json( barangContext.Get(), JsonRequestBehavior.AllowGet);
+            return result;
         }
 
         // GET: Barang/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var data = barangContext.GetById(id);
+            return View(data);
         }
 
         // GET: Barang/Create
         public ActionResult Create()
         {
             var data= from a in barangContext.GetKategories() select new SelectListItem { Value=a.IdKategori.ToString(), Text=a.NamaKategori };
-            ViewBag.DataKategori = data;
+            ViewBag.DataKategori = data.ToList();
             return View();
         }
 
@@ -37,57 +45,68 @@ namespace MainWeb.Controllers
         {
             try
             {
-                barangContext.Insert(data);
-                return RedirectToAction("Index");
+                if (barangContext.Insert(data) != null)
+                    return RedirectToAction("Index");
+                throw new SystemException("Data Tidak Tersimpan");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                throw new SystemException(ex.Message);
             }
         }
 
         // GET: Barang/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+
+            var barang = barangContext.GetById(id);
+            if (barang != null)
+            {
+                var data = from a in barangContext.GetKategories() select new SelectListItem { Value = a.IdKategori.ToString(), Text = a.NamaKategori };
+                ViewBag.DataKategori = data;
+                return View(barang);
+            }
+
+            throw new SystemException("Data Tidak Ditemukan");
+            
         }
 
         // POST: Barang/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Barang item)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if(barangContext.Update(item,id)!=null)
+                     return RedirectToAction("Index");
+                else
+                    throw new SystemException("Data Tidak Ditemukan");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                throw new SystemException(ex.Message);
             }
         }
 
         // GET: Barang/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Barang/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
             try
             {
-                // TODO: Add delete logic here
+                var barang = barangContext.Delete(id);
+                if (barang)
+                {
+                    return RedirectToAction("Index");
+                }
 
-                return RedirectToAction("Index");
+                throw new SystemException("Data Tidak Ditemukan");
             }
-            catch
+            catch (Exception  ex)
             {
-                return View();
+                throw new SystemException(ex.Message);
             }
         }
+
+       
     }
 }

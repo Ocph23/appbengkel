@@ -36,7 +36,7 @@ namespace MainWeb.Controllers
             try
             {
                 // TODO: Add insert logic here
-
+                var result =pelangganContext.Insert(item);
                 return RedirectToAction("Index");
             }
             catch

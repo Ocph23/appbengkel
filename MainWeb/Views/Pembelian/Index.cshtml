@@ -2,56 +2,93 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
+<div ng-app="app" ng-controller="PembelianController" ng-init="Init()">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IdPembelian)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TanggalBeli)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IdSupplier)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FakturPembelian)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th></th>
-    </tr>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+       
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TanggalBeli)
+            </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdPembelian)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TanggalBeli)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdSupplier)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FakturPembelian)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+            <th>
+                @Html.DisplayNameFor(model => model.FakturPembelian)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Supplier)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="item in Datas">
+            <td>
+                {{item.TanggalBeli|date:'longDate'}}
+            </td>
 
-</table>
+            <td>
+                {{item.FakturPembelian}}
+            </td>
+            <td>
+                {{item.Supplier.NamaSupplier}}
+            </td>
+            <td>
+                {{item.Total}}
+            </td>
+            <td>
+                <a href="/Pembelian/Edit/{{item.IdPembelian}}">Edit</a>|
+                <a href="/Pembelian/Details/{{item.IdPembelian}}">Details</a>|
+                <a href="/Pembelian/Delete/{{item.IdPembelian}}">Delete</a>
+            </td>
+        </tr>
+
+    </table>
+
+
+</div>
+
+
+<script src="~/Scripts/angular.js"></script>
+
+<script>
+    angular.module("app", [])
+        .controller("PembelianController", function ($scope, $http) {
+            $scope.Datas = [];
+            $scope.Init = function () {
+                var post = $http({
+                    method: "Get",
+                    url: "/api/pembelian",
+                    dataType: 'json',
+                    headers: { "Content-Type": "application/json" }
+                });
+
+                post.then(function (res, status) {
+                    $scope.Datas = res.data;
+
+                }, function (err) {
+
+                });
+            }
+
+            $scope.Delete = function (item) {
+                $http({
+                    method: "Get",
+                    url: "/Barang/Delete/" + item.IdBarang,
+                    dataType: 'json',
+                    headers: { "Content-Type": "application/json" }
+                }).then(function (res, data) {
+
+                }, function (err) {
+
+                });
+            };
+        });
+</script>

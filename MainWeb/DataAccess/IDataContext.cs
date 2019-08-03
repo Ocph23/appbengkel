@@ -13,7 +13,7 @@ namespace MainWeb.DataAccess
         T GetById(int Id);
         T Insert(T item);
 
-        T Update(T item);
+        T Update(T item, int Id);
 
         bool Delete(int Id);
 

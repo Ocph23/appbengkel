@@ -1,4 +1,5 @@
 ﻿using MainWeb.DataAccess.Contexts;
+using MainWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,19 @@ namespace MainWeb.Controllers
 {
     public class KategoriController : Controller
     {
+
+        KategoriContext context = new KategoriContext();
         // GET: Kategori
         public ActionResult Index()
         {
-            return View();
+            return View(context.Get());
         }
 
         // GET: Kategori/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var model = context.GetById(id);
+            return View(model);
         }
 
         // GET: Kategori/Create
@@ -29,51 +33,53 @@ namespace MainWeb.Controllers
 
         // POST: Kategori/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Kategori item)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+               if(context.Insert(item)!=null)
+                    return RedirectToAction("Index");
+                throw new SystemException("Data Tidak Tersimpan");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                throw new SystemException(ex.Message);
             }
         }
 
         // GET: Kategori/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = context.GetById(id);
+            return View(model);
         }
 
         // POST: Kategori/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Kategori item)
         {
             try
             {
-                // TODO: Add update logic here
-
+                if (context.Update(item, id) == null)
+                    throw new SystemException("Data Tidak Tersimpan");
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                throw new SystemException(ex.Message);
             }
         }
 
         // GET: Kategori/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var model = context.GetById(id);
+            return View(model);
         }
 
         // POST: Kategori/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Kategori item)
         {
             try
             {
@@ -81,9 +87,9 @@ namespace MainWeb.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return View("Error", ex );
             }
         }
     }

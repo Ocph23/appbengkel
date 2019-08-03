@@ -8,24 +8,35 @@ using System.Web;
 
 namespace MainWeb.Models
 {
+   
     public class Barang
     {
-        [PrimaryKey("IdBarang")]
         [ScaffoldColumn(false)]
         public int IdBarang { get; set; }
 
-        [DbColumn("KodeBarang")]
+        [Display(Name ="Kode Barang")]
         [Required(ErrorMessage ="Tidak Boleh Kosong")]
         public string KodeBarang { get; set; }
 
-        [DbColumn("Namabarang")]
+        [Display(Name = "Nama Barang")]
         [Required(ErrorMessage ="Tidak Boleh Kosong")]
-        public string Namabarang { get; set; }
+        public string NamaBarang { get; set; }
 
-        [DbColumn("idKategori")]
-        [Required(ErrorMessage ="Tidak Boleh Kosong")]
-        public int idKategori { get; set; }
+        [Display(Name = "Harga Beli")]
+        [Required(ErrorMessage = "Tidak Boleh Kosong")]
+        public double HargaBeli { get; set; }
 
-        public KategoriDto Kategori { get; set; }
+        [Display(Name = "Harga Jual")]
+        [Required(ErrorMessage = "Tidak Boleh Kosong")]
+        public double HargaJual { get; set; }
+
+        [Display(Name = "Stok")]
+        public double Stok { get; set; }
+
+        [Display(Name = "idKategori")]
+        [Required(ErrorMessage = "Tidak Boleh Kosong")]
+        public int IdKategori { get; set; }
+
+        public Kategori Kategori { get; set; }
     }
 }

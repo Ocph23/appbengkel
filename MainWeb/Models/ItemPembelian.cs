@@ -14,10 +14,10 @@
         public double HargaBeli { get; set; }
 
 
-        public double HargaJual { get; set; }
+        public double Jumlah { get; set; }
 
 
-        public JenisPenjualan TipePenjualan { get; set; }
+      
 
 
         public Barang Barang { get; set; }

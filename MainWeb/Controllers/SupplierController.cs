@@ -64,10 +64,14 @@ namespace MainWeb.Controllers
         {
             try
             {
-                collection.IdSupplier = id;
-                this.suplierContext.Update(collection);
+                if(ModelState.IsValid)
+                {
+                    this.suplierContext.Update(collection, id);
+                    return RedirectToAction("Index");
+                }
 
-                return RedirectToAction("Index");
+                return null;
+       
             }
             catch
             {

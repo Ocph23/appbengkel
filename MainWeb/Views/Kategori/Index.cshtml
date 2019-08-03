@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -23,9 +24,9 @@
             @Html.DisplayFor(modelItem => item.NamaKategori)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdKategori  }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdKategori }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdKategori })
         </td>
     </tr>
 }

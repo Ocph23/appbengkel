@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace MainWeb.DataAccess.Dto
 {
 
-    [TableName("")]
+    [TableName("Barang")]
     public class BarangDto
     {
         [PrimaryKey("IdBarang")] 
@@ -16,6 +16,16 @@ namespace MainWeb.DataAccess.Dto
 
         [DbColumn("NamaBarang")]
         public string NamaBarang { get; set; }
+
+
+        [DbColumn("HargaBeli")]
+        public double HargaBeli { get; set; }
+
+        [DbColumn("HargaJual")]
+        public double HargaJual { get; set; }
+
+        [DbColumn("Stok")]
+        public double Stok { get; set; }
 
         [DbColumn("IdKategori")]
         public int IdKategori { get; set; }

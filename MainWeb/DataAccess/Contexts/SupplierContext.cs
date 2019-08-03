@@ -38,7 +38,7 @@ namespace MainWeb.DataAccess.Contexts
                 using (var db = new OcphDbContext())
                 {
                     var results = db.Supplier.Select();
-                    return MapperData.Mapper.Map<List<Supplier>>(results);
+                    return MapperData.Map<List<Supplier>>(results);
                 }
             }
             catch (Exception ex )
@@ -55,7 +55,7 @@ namespace MainWeb.DataAccess.Contexts
                 {
                     var results = db.Supplier.Where(x=>x.IdSupplier==Id).FirstOrDefault();
                     if(results!=null)
-                         return MapperData.Mapper.Map<Supplier>(results);
+                         return MapperData.Map<Supplier>(results);
                     throw new SystemException("Data Tidak Ditemukan");
                 }
             }
@@ -71,7 +71,7 @@ namespace MainWeb.DataAccess.Contexts
             {
                 using (var db = new OcphDbContext())
                 {
-                    var data = MapperData.Mapper.Map<SupplierDto>(item);
+                    var data = MapperData.Map<SupplierDto>(item);
                     item.IdSupplier = db.Supplier.InsertAndGetLastID(data);
                     if (item.IdSupplier > 0)
                         return item;
@@ -84,14 +84,14 @@ namespace MainWeb.DataAccess.Contexts
             }
         }
 
-        public Supplier Update(Supplier item)
+        public Supplier Update(Supplier item, int Id)
         {
             try
             {
                 using (var db = new OcphDbContext())
                 {
-                    var data = MapperData.Mapper.Map<SupplierDto>(item);
-                    var updated = db.Supplier.Update(x=> new {  x.Alamat,x.NamaSupplier,x.NoTelpon}, data, x=>x.IdSupplier==item.IdSupplier);
+                    var data = MapperData.Map<SupplierDto>(item);
+                    var updated = db.Supplier.Update(x=> new {  x.Alamat,x.NamaSupplier,x.NoTelpon}, data, x=>x.IdSupplier==Id);
                     if (updated)
                         return item;
                     throw new SystemException();

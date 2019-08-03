@@ -23,12 +23,8 @@ namespace MainWeb.DataAccess.Dto
         public double HargaBeli { get; set; }
 
 
-        [DbColumn("HargaJual")]
-        public double HargaJual { get; set; }
-
-
         [DbColumn("Jumlah")]
-        public JenisPenjualan TipePenjualan { get; set; }
+        public double Jumlah { get; set; }
             
 
         public BarangDto Barang {get;set;}

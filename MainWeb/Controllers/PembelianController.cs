@@ -1,4 +1,5 @@
 ﻿using MainWeb.DataAccess.Contexts;
+using MainWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,14 @@ namespace MainWeb.Controllers
 {
     public class PembelianController : Controller
     {
-        private PembelianContext pembelianContext = new PembelianContext();
+        private SupplierContext supplierContext = new SupplierContext();
+        private PembelianContext context = new PembelianContext();
+
         // GET: Pembelian
         public ActionResult Index()
         {
-            return View(pembelianContext.Get());
+            return View();
         }
-
         // GET: Pembelian/Details/5
         public ActionResult Details(int id)
         {
@@ -25,29 +27,37 @@ namespace MainWeb.Controllers
         // GET: Pembelian/Create
         public ActionResult Create()
         {
+            var data = from a in supplierContext.Get() select new SelectListItem { Value = a.IdSupplier.ToString(), Text = a.NamaSupplier};
+            ViewBag.DataSupplier = data.ToList();
             return View();
         }
 
         // POST: Pembelian/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Pembelian model)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                var context = new PembelianContext();
+                if(context.Insert(model)!=null)
+                {
+                    return RedirectToAction("Index");
+                }
+                throw new SystemException("Data Tidak Tersimpan");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                throw new SystemException(ex.Message);
             }
         }
 
         // GET: Pembelian/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var data = from a in supplierContext.Get() select new SelectListItem { Value = a.IdSupplier.ToString(), Text = a.NamaSupplier };
+            ViewBag.DataSupplier = data.ToList();
+            return View(new Pembelian{IdPembelian=id });
+
         }
 
         // POST: Pembelian/Edit/5
@@ -56,8 +66,6 @@ namespace MainWeb.Controllers
         {
             try
             {
-                // TODO: Add update logic here
-
                 return RedirectToAction("Index");
             }
             catch
@@ -74,17 +82,18 @@ namespace MainWeb.Controllers
 
         // POST: Pembelian/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Pembelian value)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+               
+                if(context.Delete(id))
+                    return RedirectToAction("Index");
+                throw new SystemException("Data Tidak Terhapus");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                throw new SystemException(ex.Message);
             }
         }
     }

@@ -38,7 +38,7 @@ namespace MainWeb.DataAccess.Contexts
                 using (var db = new OcphDbContext())
                 {
                     var result = db.Penjualan.Select();
-                    return MapperData.Mapper.Map<List<Penjualan>>(result);
+                    return MapperData.Map<List<Penjualan>>(result);
                 }
             }catch (Exception ex)
             {
@@ -54,7 +54,7 @@ namespace MainWeb.DataAccess.Contexts
                 {
                     var result = db.Penjualan.Where(x => x.IdPenjualan == Id).FirstOrDefault();
                     if (result != null)
-                        return MapperData.Mapper.Map<Penjualan>(result);
+                        return MapperData.Map<Penjualan>(result);
                     throw new SystemException("Data Tidak Ditemukan");
                 }
             }
@@ -70,34 +70,34 @@ namespace MainWeb.DataAccess.Contexts
             {
                 using (var db= new OcphDbContext())
                 {
-                    var data = MapperData.Mapper.Map<PenjualanDto>(item);
+                    var data = MapperData.Map<PenjualanDto>(item);
                     item.IdPenjualan = db.Penjualan.InsertAndGetLastID(data);
                     if (item.IdPenjualan > 0)
                         return item;
-                    throw new SystemException();
+                    throw new SystemException("Data Tidak Tersimpan");
                 }
             }catch (Exception ex)
             {
-                throw new SystemException("Data Tidak Tersimpan");
+                throw new SystemException(ex.Message);
             }
         }
 
-        public Penjualan Update(Penjualan item)
+        public Penjualan Update(Penjualan item, int Id)
         {
            try
             {
                 using (var db = new OcphDbContext())
                 {
-                    var data = MapperData.Mapper.Map<PenjualanDto>(item);
-                    var updated = db.Penjualan.Update(x=> new { x.FakturPenjualan, x.TanggalJual }, data, x=>x.IdPenjualan == item.IdPenjualan);
+                    var data = MapperData.Map<PenjualanDto>(item);
+                    var updated = db.Penjualan.Update(x=> new { x.FakturPenjualan, x.TanggalJual }, data, x=>x.IdPenjualan == Id);
                     if (updated)
                         return item;
-                    throw new SystemException();
+                    throw new SystemException("Data Tidak Tersimpan");
                 }
             }
             catch (Exception ex)
             {
-                throw new SystemException("Data Tidak Tersimpan");
+                throw new SystemException(ex.Message);
             }
         }
     }

@@ -1,0 +1,65 @@
+﻿@model MainWeb.Models.Barang
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Barang</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KodeBarang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KodeBarang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NamaBarang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NamaBarang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kategori.NamaKategori)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kategori.NamaKategori)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HargaBeli)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HargaBeli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HargaJual)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HargaJual)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stok)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Stok)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdBarang }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

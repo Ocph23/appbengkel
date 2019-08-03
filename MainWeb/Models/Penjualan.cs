@@ -23,10 +23,12 @@ namespace MainWeb.Models
         public int? IdPelanggan { get; set; }
 
         [DbColumn("TanggalJual")]
-        public string TanggalJual { get; set; }
+        public DateTime? TanggalJual { get; set; }
 
+
+        public string Pembayaran { get; set; }
         public PelangganDto Pelanggan { get; set; }
 
-        public List<ItemPenjualanDto> DataPenjualan { get; set; }
+        public List<ItemPenjualanDto> Items { get; set; }
     }
 }

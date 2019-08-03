@@ -7,23 +7,21 @@ using System.Web;
 
 namespace MainWeb.Models
 {
-    [TableName("Montir")]
     public class Montir
     {
-        [PrimaryKey("IdMontir")]
-        [DbColumn("IdMontir")]
         [ScaffoldColumn(false)]
         public int IdMontir { get; set; }
 
-        [DbColumn("NamaMontir")]
+        [Display(Name="Nama Montir")]
         [Required(ErrorMessage = "Tidak Boleh Kosong")]
         public string NamaMontir { get; set; }
 
-        [DbColumn("AlamatMontir")]
+        [Display(Name="Alamat")]
         [Required(ErrorMessage = "Tidak Boleh Kosong")]
         public string Alamat { get; set; }
 
-        [DbColumn("NoTelepon")]
+
+        [Display(Name="Telepon")]
         [Required(ErrorMessage = "Tidak Boleh Kosong")]
         public string NoTelpon { get; set; }
     }

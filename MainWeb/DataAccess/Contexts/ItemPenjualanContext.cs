@@ -29,7 +29,7 @@ namespace MainWeb.DataAccess.Contexts
             throw new NotImplementedException();
         }
 
-        public ItemPenjualan Update(ItemPenjualan item)
+        public ItemPenjualan Update(ItemPenjualan item, int Id)
         {
             throw new NotImplementedException();
         }

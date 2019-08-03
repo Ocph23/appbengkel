@@ -7,13 +7,12 @@ using System.Web;
 
 namespace MainWeb.Models
 {
-    [TableName("Kategori")]
     public class Kategori
     {
-        [PrimaryKey("IdKategori")]
         [ScaffoldColumn(false)]
         public int IdKategori { get; set; }
-        [DbColumn("NamaKategori")]
+
+        [Display(Name="Nama Kategori")]
         [Required(ErrorMessage ="Tidak Boleh Kosong")]
         public string NamaKategori { get; set; }
     }

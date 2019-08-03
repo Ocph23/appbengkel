@@ -66,7 +66,7 @@ namespace MainWeb.Controllers
             try
             {
                 collection.IdPenjualan = id;
-                this.penjualanContext.Update(collection);
+                this.penjualanContext.Update(collection,id);
 
                 return RedirectToAction("Index");
             }

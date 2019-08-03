@@ -12,15 +12,12 @@ namespace MainWeb.DataAccess.Dto
         public int IdMontir { get; set; }
 
         [DbColumn("NamaMontir")]
-
         public string NamaMontir { get; set; }
 
         [DbColumn("AlamatMontir")]
-
         public string Alamat { get; set; }
 
-        [DbColumn("NoTelepon")]
-
+        [DbColumn("NoTelpon")]
         public string NoTelpon { get; set; }
     }
 }

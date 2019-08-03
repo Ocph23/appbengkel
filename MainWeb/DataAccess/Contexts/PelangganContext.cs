@@ -35,8 +35,9 @@ namespace MainWeb.DataAccess.Contexts
             {
                 using (var db = new OcphDbContext())
                 {
-                    var result = db.Pelanggan.Select();
-                    return MapperData.Mapper.Map<List<Pelanggan>>(result);
+                    var result = db.Pelanggan.Select().ToList();
+                    var res= MapperData.Map<IEnumerable<Pelanggan>>(result);
+                    return res;
                 }
             }catch (Exception ex)
             {
@@ -52,7 +53,7 @@ namespace MainWeb.DataAccess.Contexts
                 {
                     var result = db.Pelanggan.Where(x=>x.IdPelanggan == Id).FirstOrDefault();
                     if (result != null)
-                        return MapperData.Mapper.Map<Pelanggan>(result);
+                        return MapperData.Map<Pelanggan>(result);
                     throw new SystemException("Data Tidak Ditemukan");
                 }
             }catch (Exception ex)
@@ -67,7 +68,7 @@ namespace MainWeb.DataAccess.Contexts
             {
                 using (var db = new OcphDbContext())
                 {
-                    var data = MapperData.Mapper.Map<PelangganDto>(item);
+                    var data = MapperData.Map<PelangganDto>(item);
                     item.IdPelanggan = db.Pelanggan.InsertAndGetLastID(data);
                     if (item.IdPelanggan > 0)
                         return item;
@@ -79,14 +80,14 @@ namespace MainWeb.DataAccess.Contexts
             }
         }
 
-        public Pelanggan Update(Pelanggan item)
+        public Pelanggan Update(Pelanggan item, int Id)
         {
             try
             {
                 using (var db = new OcphDbContext())
                 {
-                    var data = MapperData.Mapper.Map<PelangganDto>(item);
-                    var updated = db.Pelanggan.Update(x => new { x.NamaPelanggan, x.Alamat, x.NoTelpon }, data, x => x.IdPelanggan == item.IdPelanggan);
+                    var data = MapperData.Map<PelangganDto>(item);
+                    var updated = db.Pelanggan.Update(x => new { x.NamaPelanggan, x.Alamat, x.NoTelpon }, data, x => x.IdPelanggan == Id);
                     if (updated)
                         return item;
                     throw new SystemException();

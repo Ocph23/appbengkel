@@ -15,21 +15,26 @@ namespace MainWeb.DataAccess.Dto
 
 
         [DbColumn("TanggalBeli")]
-        public DateTime TanggalBeli { get; set; }
+        public DateTime? TanggalBeli { get; set; }
 
 
         [DbColumn("IdSupplier")]
         public int IdSupplier { get; set; }
 
-        [DbColumn("FakturPembelian ")]
+        [DbColumn("FakturPembelian")]
         public string FakturPembelian { get; set; }
 
         [DbColumn("UserId")]
         public string UserId { get; set; }
 
+        [DbColumn("Pembayaran")]
+        public string Pembayaran { get; set; }
+
+
+
         public SupplierDto Supplier { get; set; }
 
-        public List<ItemPembelianDto> Data {get;set;}
+        public List<ItemPembelianDto> Items {get;set;}
 
     }
 }

@@ -10,7 +10,27 @@ namespace MainWeb.DataAccess.Contexts
     {
         public bool Delete(int Id)
         {
-            throw new NotImplementedException();
+            using (var db = new OcphDbContext())
+            {
+                var trans = db.BeginTransaction();
+                try
+                {
+                    var pembelian = this.GetById(Id);
+                    if (pembelian != null && db.DetailPembelian.Delete(x => x.IdPembelian == pembelian.IdPembelian) &&
+                        db.Pembelian.Delete(x => x.IdPembelian == Id))
+                    {
+                        trans.Commit();
+                        return true;
+                    }
+
+                    throw new SystemException("Data Tidak tersimpan");
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    throw new SystemException(ex.Message);
+                }
+            }
         }
 
         public IEnumerable<Pembelian> Get()
@@ -24,16 +44,12 @@ namespace MainWeb.DataAccess.Contexts
                                  select new PembelianDto
                                  { FakturPembelian=a.FakturPembelian, IdPembelian=a.IdPembelian, IdSupplier=a.IdSupplier,
                                      Supplier = b, TanggalBeli=a.TanggalBeli, UserId=a.UserId,
-                                     Data = db.DetailPembelian.Where(x => x.IdPembelian == a.IdPembelian).ToList()
+                                     Items = db.DetailPembelian.Where(x => x.IdPembelian == a.IdPembelian).ToList()
                                  };
                                 
 
 
-                    if (result.Count()<=0)
-                    {
-                        throw new SystemException("Data Tidak Ditemukan");
-                    }
-                    return MapperData.Mapper.Map<List<Pembelian>>(result);
+                    return MapperData.Map<List<Pembelian>>(result);
                 }
             }
             catch (Exception ex)
@@ -49,65 +65,95 @@ namespace MainWeb.DataAccess.Contexts
             {
                 using (var db =new OcphDbContext())
                 {
-                    var result = db.Pembelian.Where(x => x.IdPembelian == Id).FirstOrDefault();
+                    var result = from a in db.Pembelian.Where(x => x.IdPembelian == Id)
+                                 join c in db.Supplier.Select() on a.IdSupplier equals c.IdSupplier
+
+                                 select new Pembelian {
+                                     Supplier = MapperData.Map<Supplier>(c), FakturPembelian = a.FakturPembelian,
+                                     IdPembelian = a.IdPembelian,
+                                     Items = (from b in db.DetailPembelian.Where(x=>x.IdPembelian == a.IdPembelian)
+                                   join br in db.Barang.Select() on b.IdBarang equals br.IdBarang
+                                   select new ItemPembelian { Barang = MapperData.Map<Barang>(br) }).ToList()
+
+
+                                 };
+                    
                     if(result==null)
                     {
                         throw new SystemException("Data Tidak Ditemukan");
                     }
-                    return MapperData.Mapper.Map<Pembelian>(result);
+                    return result.FirstOrDefault();
                 }
             }
             catch (Exception ex)
             {
-
                 throw new SystemException(ex.Message);
             }
         }
 
         public Pembelian Insert(Pembelian item)
         {
-            try
+            var data = MapperData.Map<PembelianDto>(item);
+            using (var db = new OcphDbContext())
             {
-                var data = MapperData.Mapper.Map<PembelianDto>(item);
-                using (var db = new OcphDbContext())
+                var trans = db.BeginTransaction();
+                try
                 {
                     item.IdPembelian = db.Pembelian.InsertAndGetLastID(data);
-                    return item;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new SystemException(ex.Message);
-            }
-        }
 
-        public Pembelian Update(Pembelian item)
-        {
-            try
-            {
-                var dto = MapperData.Mapper.Map<PembelianDto>(item);
-
-                using (var db = new OcphDbContext())
-                {
-                    var updated = db.Pembelian.Update(x => new { x.FakturPembelian, x.IdSupplier, x.TanggalBeli }, dto, x => x.IdPembelian == dto.IdPembelian);
-                    if(updated)
+                    if (item.IdPembelian <= 0)
+                        throw new SystemException("Data Tidak Tersimpan");
+                    else
                     {
-                        foreach(var da in dto.Data)
+                        foreach (var barang in data.Items)
                         {
-
+                            barang.IdPembelian = item.IdPembelian;
+                            if (!db.DetailPembelian.Insert(barang))
+                                throw new SystemException("Data Tidak Tersimpan");
                         }
                     }
 
+                    trans.Commit();
+                    return item;
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    throw new SystemException(ex.Message);
+                }
+            }
+        }
+
+        public Pembelian Update(Pembelian item, int id)
+        {
+            var dto = MapperData.Map<PembelianDto>(item);
+
+            using (var db = new OcphDbContext())
+            {
+                var trans = db.BeginTransaction();
+                try
+                {
+                    var updated = db.Pembelian.Update(x => new { x.FakturPembelian, x.IdSupplier, x.TanggalBeli },
+                        dto, x => x.IdPembelian == id);
+                    if (updated)
+                    {
+                        foreach (var data in dto.Items)
+                        {
+                            db.DetailPembelian.Insert(MapperData.Map<ItemPembelianDto>(data));
+                        }
+                    }
+
+                    trans.Commit();
+                    return item;
+                }
+                catch (Exception ex)
+                {
+
+                    throw new SystemException(ex.Message);
                 }
 
-                return null;
-
             }
-            catch (Exception ex)
-            {
 
-                throw;
-            }
         }
     }
 }
