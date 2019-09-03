@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/style5.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/angular.js"></script>
+</head>
+<body>
+    <div class="container">
+        @RenderBody()
+    </div>
+</body>
+</html>
+
+
+
+
+<style>
+    .header{
+        width:40%;
+        margin-left:60%;
+    }
+
+    .headerItem{
+        display:grid;
+        grid-template-columns:40% 60%;
+        margin:5px;
+        
+    }
+
+    label{
+        width:200px !important;
+    }
+</style>

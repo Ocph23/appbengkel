@@ -55,9 +55,6 @@
                     <th>
                         Harga Beli
                     </th>
-                    <th>
-                        Harga Jual
-                    </th>
 
                     <th>
                         Jumlah
@@ -74,18 +71,15 @@
 
                 <tr ng-repeat="item in data.Items">
                     <td>
-                        {{item.KodeBarang}}
+                        {{item.Barang.KodeBarang}}
                     </td>
 
                     <td>
-                        {{item.NamaBarang}}
+                        {{item.Barang.NamaBarang}}
                     </td>
 
                     <td>
-                        {{item.HargaJual}}
-                    </td>
-                    <td>
-                        {{item.HargaBeli}}
+                        <input style="max-width:100px" type="number" class="form-control" ng-model="item.HargaBeli" />
                     </td>
                     <td>
                         <input style="max-width:100px" type="number" class="form-control" ng-model="item.Jumlah" />
@@ -97,13 +91,20 @@
                         <a href="" ng-click="Delete(item)">Delete</a>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="4">Total</td>
+                    <td >  Rp. {{data.Total|number}}</td>
+                </tr>
 
             </table>
+            <div>
+              
+            </div>
 
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <button ng-click="Save(data)" class="btn btn-default text-right">Save</button>
                 </div>
             </div>
         </div>
@@ -111,7 +112,7 @@
 
     <div>
         @Html.ActionLink("Back to List", "Index")
-        <button ng-click="Save(data)" class="btn btn-default">Save</button>
+     
     </div>
 
 
@@ -212,11 +213,17 @@
 
                      var post = $http({
                     method: "Get",
-                    url: "/api/pembelian/"+Id,
+                    url: "/api/pembelianapi/"+Id,
                     dataType: 'json',
                     headers: { "Content-Type": "application/json" }
                      }).then(function (res) {
                          $scope.data = res.data;
+                         $scope.data.TanggalBeli = new Date($scope.data.TanggalBeli);
+                         $scope.data.Supplier = {
+                             "Disabled": false, "Group": null, "Selected": true,
+                             "Text":$scope.data.Supplier.NamaSupplier, "Value":$scope.data.Supplier.IdSupplier
+                         };
+
                      }, function (err) {
                              alert(err);
                     });
@@ -245,7 +252,7 @@
                 data.IdSupplier = data.Supplier.Value;
                  var post = $http({
                     method: "Post",
-                    url: "/api/pembelian",
+                    url: "/api/pembelianapi",
                      dataType: 'json',
                      data: data,
                     headers: { "Content-Type": "application/json" }

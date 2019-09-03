@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-           
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Supplier, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -58,7 +58,7 @@
                     <th>
                         Harga Jual
                     </th>
-                  
+
                     <th>
                         Jumlah
                     </th>
@@ -82,13 +82,13 @@
                     </td>
 
                     <td>
-                        {{item.HargaJual}}
-                    </td>
-                    <td>
                         {{item.HargaBeli}}
                     </td>
                     <td>
-                      <input style="max-width:100px" type="number" class="form-control" ng-model="item.Jumlah"/>
+                        {{item.HargaJual}}
+                    </td>
+                    <td>
+                        <input style="max-width:100px" type="number" class="form-control" ng-model="item.Jumlah" />
                     </td>
                     <td>
                         {{item.Jumlah * item.HargaBeli|number}}
@@ -101,18 +101,20 @@
             </table>
 
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
+
         </div>
     }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-    <button ng-click="Save(data)" class="btn btn-default">Save</button>
-</div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button ng-click="Save(data)" class="btn btn-default">Save</button>
+        </div>
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+
+    </div>
 
 
 
@@ -227,7 +229,7 @@
                 data.IdSupplier = data.Supplier.Value;
                  var post = $http({
                     method: "Post",
-                    url: "/api/pembelian",
+                    url: "/api/pembelianapi",
                      dataType: 'json',
                      data: data,
                     headers: { "Content-Type": "application/json" }

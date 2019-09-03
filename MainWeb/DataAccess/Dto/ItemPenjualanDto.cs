@@ -14,7 +14,6 @@ namespace MainWeb.DataAccess.Dto
         [DbColumn("IdDetailPenjualan")]
         public int IdItem { get; set; }
 
-
         [DbColumn("IdPenjualan")]
         public int IdPenjualan { get; set; }
 
@@ -23,22 +22,19 @@ namespace MainWeb.DataAccess.Dto
         public int IdBarang { get; set; }
 
 
-        [DbColumn("IdMontir")]
-        public int IdMontir { get; set; }
+        [DbColumn("Jumlah")]
+        public double Jumlah { get; set; }
 
 
         [DbColumn("HargaJual")]
         public double HargaJual { get; set; }
 
-
-        [DbColumn("JenisPenjualan")]
-        public JenisPenjualan TipePenjualan { get; set; }
-            
+        [DbColumn("HargaBeli")]
+        public double HargaBeli{ get; set; }
 
         public BarangDto Barang {get;set;}
 
 
-        public MontirDto Montir { get; set; }
 
     }
 }

@@ -16,11 +16,11 @@
 
         public double Jumlah { get; set; }
 
-
-      
-
-
         public Barang Barang { get; set; }
+
+        public double Total { get {
+                return Jumlah * HargaBeli;
+            } }
 
     }
 }

@@ -78,8 +78,22 @@ namespace MainWeb.DataAccess.Contexts
         {
             try
             {
+                if(item.HargaJual <= item.HargaBeli)
+                {
+                    throw new SystemException("Harga Jual Harus Lebih Besar Dari Harga Beli");
+                }
+
                 using (var db = new OcphDbContext())
                 {
+                    int lasId = 0;
+                    var data = db.Barang.Where(x => x.IdKategori == item.IdKategori).LastOrDefault();
+                    if(data!=null)
+                    {
+                        Int32.TryParse(data.KodeBarang.Substring(3, data.KodeBarang.Length-3), out lasId);
+                        
+                    }
+
+                    item.KodeBarang = $"{(item.IdKategori):D3}{(lasId + 1):D5}";
                     item.IdBarang = db.Barang.InsertAndGetLastID(MapperData.Map<BarangDto>(item));
                     return item;
                 }

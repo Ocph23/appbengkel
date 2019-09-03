@@ -26,6 +26,36 @@ namespace MainWeb.DataAccess.Contexts
             }
         }
 
+        internal IEnumerable<MontirServiceModel> GetByIdWithDetail(int id)
+        {
+            using (var db = new OcphDbContext())
+            {
+                var result = from service in db.Services.Where(x => x.IdMontir == id)
+                             join penjualan in db.Penjualan.Select() on service.IdPenjualan equals penjualan.IdPenjualan
+                             select new ItemServiceDto
+                             {
+                                 Biaya = service.Biaya,
+                                 IdItem = service.IdItem,
+                                 IdMontir = service.IdMontir,
+                                 IdPenjualan = service.IdPenjualan,
+                                 Keterangan = service.Keterangan,
+                                 Perbaikan = service.Perbaikan,
+                                 Tanggal = penjualan.TanggalJual,
+                                 NoFaktur = penjualan.FakturPenjualan
+                             };
+
+                var datas= MapperData.Map<List<ItemService>>(result.ToList());
+
+                var list = new List<MontirServiceModel>();
+                foreach(var item in datas.GroupBy(x => x.NoFaktur))
+                {
+                    list.Add(new MontirServiceModel(item));
+                }
+
+                return list;
+            }
+        }
+
         public IEnumerable<Montir> Get()
         {
             try

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MainWeb.Controllers
 {
+    [Authorize]
     public class PelangganController : Controller
     {
         private PelangganContext pelangganContext = new PelangganContext();
@@ -48,18 +49,20 @@ namespace MainWeb.Controllers
         // GET: Pelanggan/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var item = pelangganContext.GetById(id);
+            return View(item);
         }
 
         // POST: Pelanggan/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Pelanggan item)
         {
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if (pelangganContext.Update(item, id) != null)
+                    return RedirectToAction("Index");
+                throw new SystemException("Data Tidak Tersimpan");
             }
             catch
             {
@@ -70,7 +73,7 @@ namespace MainWeb.Controllers
         // GET: Pelanggan/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(pelangganContext.GetById(id));
         }
 
         // POST: Pelanggan/Delete/5
@@ -79,13 +82,13 @@ namespace MainWeb.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                pelangganContext.Delete(id);
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                throw new SystemException(ex.Message);
             }
         }
     }

@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace MainWeb.Api
 {
-    public class PembelianController : ApiController
+    public class PembelianApiController : ApiController
     {
         private PembelianContext pembelianContext = new PembelianContext();
         // GET: api/PembelianApi

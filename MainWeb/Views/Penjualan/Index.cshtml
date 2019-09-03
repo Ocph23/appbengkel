@@ -4,42 +4,265 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FakturPenjualan)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IdPelanggan)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TanggalJual)
-        </th>
-        <th></th>
-    </tr>
+<h3 class="just-print">BENGKEL MELATI</h3>
+<hr class="just-print"/>
+<div ng-app="app" ng-controller="PenjualanController" ng-init="Init()">
+    <div id="penjualan">
+        <h5>Transaksi Penjualan</h5>
+        <p class="no-print">
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <div>
+           
+        </div>
+        <div style="justify-content:flex-end;margin:5px" class="form-inline">
+            <label style="width:100px">Tanggal </label>
+            <input class="form-control" type="date" ng-model="tanggal.Start" ng-change="onChangeDate(tanggal)" />
+            <input class="form-control" type="date" ng-model="tanggal.End" ng-change="onChangeDate(tanggal)" />
+            <input  class="form-control no-print" type="checkbox" ng-click="showDetail = !showDetail;"  style="margin-left:5px;"/><label class="no-print">Detail</label>
+        </div>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TanggalJual)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FakturPenjualan)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Customer.NamaPelanggan)
+                </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FakturPenjualan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdPelanggan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TanggalJual)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+                <th>
+                    @Html.DisplayNameFor(model => model.Total)
+                </th>
+                <th class="no-print"></th>
+            </tr>
+            <tbody ng-repeat="item in Datas">
+                <tr style="background-color:silver">
+                    <td>
+                        {{item.TanggalJual|date:'longDate'}}
+                    </td>
 
-</table>
+                    <td>
+                        {{item.FakturPenjualan}}
+                    </td>
+                    <td>
+                        {{item.Customer.NamaPelanggan}}
+                    </td>
+                    <td>
+                        Rp. {{item.Total|number}}
+                    </td>
+                    <td class="no-print">
+                        <a href="/Penjualan/Edit/{{item.IdPenjualan}}">Edit</a>|
+                        <a href="/Penjualan/Delete/{{item.IdPenjualan}}">Delete</a> |
+                        <a href="/Penjualan/FakturPenjualan/{{item.IdPenjualan}}">Print</a>
+                    </td>
+                </tr>
+                <tr ng-show="showDetail" >
+                    <td colspan="4">
+                        <table style="margin-left:20px;" class="table">
+                            <tr class="table-detail" ng-show="item.Items.length > 0">
+                                <td colspan="4">Barang</td>
+                            </tr>
+                            <tr ng-repeat="data in item.Items" class="table-detail" ng-show="item.Items.length > 0">
+                                <td>
+                                    {{data.Barang.KodeBarang}}
+                                </td>
+
+                                <td>
+                                    {{data.Barang.NamaBarang}}
+                                </td>
+                                <td>
+                                    {{data.Jumlah}}
+                                </td>
+                                <td>
+                                    Rp. {{data.Total|number}}
+                                </td>
+                                <td class="no-print"></td>
+                            </tr>
+                            <tr ng-show="item.Items.length > 0 && item.Services.length > 0">
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr style="margin-top:20px !important;" class="table-detail" ng-show="item.Services.length > 0">
+                                <td colspan="4">Service</td>
+                            </tr>
+                            <tr ng-repeat="data in item.Services" class="table-detail" ng-show="item.Services.length > 0">
+                                <td>
+                                    {{data.Perbaikan}}
+                                </td>
+                                <td colspan="2">
+                                    {{data.Montir.NamaMontir}}
+                                </td>
+                                <td>
+                                    Rp. {{data.Biaya|number}}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+            <tr>
+                <td colspan="3">Total</td>
+                <td>Rp. {{GrandTotal(Datas)|number}}</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <div id="laba" class="laba">
+
+        <h5>PERHITUNGAN LABA BRUTO</h5>
+        <table class="table">
+            <tr>
+                <td>Periode </td>
+                <td>{{tanggal.Start|date:'dd MMM yyyy'}} - {{tanggal.End|date:'dd MMM yyyy'}}</td>
+            </tr>
+
+            <tr>
+                <td>Total Penjualan Barang (a)</td>
+                <td>Rp. {{Result.Penjualan|number}}</td>
+            </tr>
+            <tr>
+                <td>Total Servis (b)</td>
+                <td>Rp. {{Result.Service|number}}</td>
+            </tr>
+            <tr>
+                <td>Total Penjualan (a + b)</td>
+                <td>Rp. {{Result.GrandTotal|number}}</td>
+            </tr>
+            <tr>
+                <td>Harga Beli Barang (c)</td>
+                <td>Rp. {{Result.HargaBeli|number}}</td>
+            </tr>
+            <tr>
+                <td>Upah Montir (b * 10%)</td>
+                <td>Rp. {{Result.UpahMontir|number}}</td>
+            </tr>
+            <tr>
+                <td><h6>Laba Bruto ((a+b)-c-(b*10%))</h6></td>
+                <td><h6>Rp. {{Result.LabaBruto|number}}</h6></td>
+            </tr>
+        </table>
+        <hr/>
+    </div>
+
+    <button class="btn no-print" ng-click="printPenjualan()">Print</button>
+    <button class="btn no-print" ng-click="printLaba()">Print Laba</button>
+</div>
+
+
+<style>
+    .laba{
+        display:none !important;
+    }
+</style>
+<script>
+    angular.module("app", ["ngRoute"])
+        .controller("PenjualanController", function ($scope, $http) {
+            $scope.Datas = [];
+            $scope.Init = function () {
+                var post = $http({
+                    method: "Get",
+                    url: "/api/PenjualanApi",
+                    dataType: 'json',
+                    headers: { "Content-Type": "application/json" }
+                }).then(function (res) {
+                    $scope.source = res.data;
+                }, function (err) {
+
+                });
+            }
+
+
+            $scope.onChangeDate = function (tanggal) {
+                $scope.Datas = [];
+                if (tanggal.End === undefined) {
+                    tanggal.End = new Date();
+                }
+
+                if (tanggal.Start !== undefined && tanggal.End < tanggal.Start) {
+                    tanggal.End = tanggal.Start;
+                }
+
+                if (tanggal.Start !== undefined && tanggal.End !== undefined) {
+                    $scope.source.forEach(x => {
+                        var tgl = new Date(x.TanggalJual);
+                        if (tgl >= tanggal.Start && tgl <= tanggal.End) {
+                            $scope.Datas.push(x);
+                        }
+
+                    });
+                }
+            }
+
+            $scope.printPenjualan = function () {
+                $('#sidebar').toggleClass('active');
+                window.print();
+                $('#sidebar').toggleClass('active');
+            }
+
+             $scope.printLaba= function () {
+                 $('#sidebar').toggleClass('active');
+                 $('#penjualan').addClass('no-print');
+                  $('#laba').removeClass('laba');
+                window.print();
+                 $('#sidebar').toggleClass('active');
+                 $('#penjualan').removeClass('no-print');
+                  $('#laba').addClass('laba');
+            }
+
+           
+            $scope.Delete = function (item) {
+                $http({
+                    method: "Get",
+                    url: "/Barang/Delete/" + item.IdBarang,
+                    dataType: 'json',
+                    headers: { "Content-Type": "application/json" }
+                }).then(function (res, data) {
+
+                }, function (err) {
+
+                });
+            };
+
+           
+            //
+            $scope.GrandTotal = function (datas) {
+               $scope.Result = {GrandTotal:0, Penjualan:0,Service:0, HargaBeli:0};
+                var total = 0;
+                datas.forEach(x => {
+                    $scope.Result.GrandTotal += x.Total;
+                    $scope.Result.Penjualan += x.TotalPenjualan;
+                    $scope.Result.Service += x.TotalService;
+                    $scope.Result.HargaBeli += x.TotalHargaBeli;
+                });
+
+                $scope.Result.UpahMontir = $scope.Result.Service * (10 / 100);
+
+                $scope.Result.LabaBruto = $scope.Result.GrandTotal - $scope.Result.HargaBeli - $scope.Result.UpahMontir;
+
+                 return $scope.Result.GrandTotal;
+            }
+
+             $scope.TotalPenjualan = function (datas) {
+                var total = 0;
+                datas.forEach(x => {
+                    total += x.TotalPenjualan;
+                });
+                return total;
+            }
+
+             $scope.TotalServis= function (datas) {
+                var total = 0;
+                datas.forEach(x => {
+                    total += x.TotalService;
+                });
+                return total;
+            }
+
+
+        });
+</script>

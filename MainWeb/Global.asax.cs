@@ -50,12 +50,14 @@ namespace MainWeb
 
                 var model = new HandleErrorInfo(exceptionContext.Exception, controllerName, actionName);
 
-                exceptionContext.Result = new ViewResult
+                var view= new ViewResult
                 {
-                    ViewName = "~/Views/ErrorHandler/Index",
-                    ViewData = new ViewDataDictionary<HandleErrorInfo>(model),
+                    ViewName = "~/Views/ErrorHandler/ErrorInfo.cshtml",
+                    ViewData = new ViewDataDictionary<HandleErrorInfo>(),
                     TempData = exceptionContext.Controller.TempData
                 };
+                view.ViewData.Add("Model", model);
+                exceptionContext.Result = view;
 
 
             }

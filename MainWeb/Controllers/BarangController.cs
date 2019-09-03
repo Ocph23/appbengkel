@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MainWeb.Controllers
 {
+    [Authorize]
     public class BarangController : Controller
     {
         private BarangContext barangContext = new BarangContext();

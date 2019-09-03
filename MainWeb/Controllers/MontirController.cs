@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MainWeb.Controllers
 {
+    [Authorize]
     public class MontirController : Controller
     {
         private MontirContext context = new MontirContext();
@@ -25,6 +26,7 @@ namespace MainWeb.Controllers
             try
             {
                 var result = context.GetById(id);
+
                 return View(result);
             }
             catch (Exception ex)
@@ -108,6 +110,15 @@ namespace MainWeb.Controllers
             {
                 throw new SystemException(ex.Message);
             }
+        }
+
+
+        [HttpGet]
+        public ActionResult PrintUpah(int id, int bulan)
+        {
+            var result = context.GetById(id);
+            ViewBag.Bulan = bulan;
+            return View(result);
         }
     }
 }

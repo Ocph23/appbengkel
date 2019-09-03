@@ -4,6 +4,7 @@ using System.Web.Mvc;
 
 namespace MainWeb.Controllers
 {
+    [Authorize]
     public class SupplierController : Controller
     {
         private SupplierContext suplierContext = new SupplierContext();

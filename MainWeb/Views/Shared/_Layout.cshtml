@@ -8,10 +8,12 @@
     @Styles.Render("~/Content/css")
     <link href="~/Content/style5.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/angular/angular.js"></script>
+    <script src="~/Scripts/angular/angular-route.js"></script>
 
 </head>
 <body>
-    <div class="wrapper">
+    <div class="wrapper" id="wr">
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
@@ -41,7 +43,7 @@
                     <a href="#barangSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Barang</a>
                     <ul class="collapse list-unstyled" id="barangSubmenu">
                         <li>
-                            <a href="/Barang">Dat Barang</a>
+                            <a href="/Barang">Data Barang</a>
                         </li>
                         <li>
                             <a href="/Kategori">Kategori</a>
@@ -58,16 +60,14 @@
                     <a href="#transaksi" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Transaksi</a>
                     <ul class="collapse list-unstyled" id="transaksi">
                         <li>
-                            <a href="/Pembelian">Pemeblian</a>
+                            <a href="/Pembelian">Pembelian</a>
                         </li>
                         <li>
                             <a href="/Penjualan">Penjualan</a>
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#">Logout</a>
-                </li>
+
             </ul>
             <ul class="list-unstyled CTAs">
                 <li>
@@ -99,11 +99,16 @@
     </div>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+
+    @Scripts.Render("~/bundles/bootstrap")
+   
+    @RenderSection("scripts", required: false)
+
+
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -113,11 +118,5 @@
             });
         });
     </script>
-
-    @Scripts.Render("~/bundles/jquery")
-
-    @Scripts.Render("~/bundles/bootstrap")
-    <script src="~/Scripts/angular.js"></script>
-    @RenderSection("scripts", required: false)
 </body>
 </html>

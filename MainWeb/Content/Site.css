@@ -1,4 +1,10 @@
-﻿body {
+﻿.table-detail > td {
+    padding: 3px !important;
+    margin: 0px !important;
+}
+
+
+body {
     padding-bottom: 20px;
 }
 
@@ -22,6 +28,20 @@ textarea {
     max-width: 280px;
 }
 
+.just-print {
+    display: none !important;
+}
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+
+    .just-print {
+        display: block !important;
+    }
+}
 
 
 @media (max-width: 500px) {

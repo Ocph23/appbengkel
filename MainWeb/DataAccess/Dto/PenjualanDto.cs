@@ -7,10 +7,10 @@ namespace MainWeb.DataAccess.Dto
     [TableName("Penjualan")]
     public class PenjualanDto
     {
-      [PrimaryKey("IdPenjualan")]
-      [DbColumn("IdPenjualan")]
+        [PrimaryKey("IdPenjualan")]
+        [DbColumn("IdPenjualan")]
         public int IdPenjualan { get; set; }
-        
+
         [DbColumn("FakturPenjualan")]
         public string FakturPenjualan { get; set; }
 
@@ -22,8 +22,14 @@ namespace MainWeb.DataAccess.Dto
 
         [DbColumn("Pembayaran")]
         public string Pembayaran { get; set; }
-        public PelangganDto Pelanggan { get; set; }
+
+        [DbColumn("UserId")]
+        public string UserId { get; set; }
+
+        public PelangganDto Customer { get; set; }
 
         public List<ItemPenjualanDto> Items { get; set; }
+
+        public List<ItemServiceDto> Services { get; set; }
     }
 }

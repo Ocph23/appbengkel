@@ -1,0 +1,98 @@
+﻿@model MainWeb.Models.Pembelian
+
+@{
+    ViewBag.Title = "FakturPembelian";
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+}
+
+<h2>FakturPembelian</h2>
+<div>
+    <hr />
+
+    <div class="header">
+        <div class="headerItem">
+            <label>
+                @Html.DisplayNameFor(model => model.FakturPembelian)
+            </label>
+            : @Html.DisplayFor(model => model.FakturPembelian)
+        </div>
+
+        <div class="headerItem">
+            <label>
+                @Html.DisplayNameFor(model => model.TanggalBeli)
+            </label>
+            : @Html.DisplayFor(model => model.TanggalBeli)
+        </div>
+
+        <div class="headerItem">
+            <label>
+                @Html.DisplayNameFor(model => model.Supplier)
+            </label>
+            : @Html.DisplayFor(model => model.Supplier.NamaSupplier)
+        </div>
+        <hr />
+
+
+
+    </div>
+
+    <h5>Item Barang</h5>
+    <table class="table">
+        <tr>
+            <th>
+                Kode Barang
+            </th>
+            <th>
+                Nama Barang
+            </th>
+
+            <th>
+                Harga Jual
+            </th>
+
+            <th>
+                Jumlah
+            </th>
+            <th>
+                Total
+            </th>
+        </tr>
+
+
+        @foreach (var item in Model.Items)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Barang.KodeBarang)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Barang.NamaBarang)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.HargaBeli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Jumlah)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total)
+        </td>
+    </tr>
+        }
+
+
+    </table>
+    <hr />
+    <hr />
+    <div class="pull-right">
+        <h4 style="justify-content:flex-end">Total : <span> Rp. @Html.DisplayFor(m => Model.Total)</span></h4>
+    </div>
+
+</div>
+
+
+<script>
+    window.print();
+</script>

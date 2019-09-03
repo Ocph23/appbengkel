@@ -10,40 +10,28 @@ namespace MainWeb.Models
 {
     public class ItemPenjualan
     {
-        [TableName("DetailPenjualan")]
-        public class ItemPenjualanDto
+        [ScaffoldColumn(false)]
+        public int IdItem { get; set; }
+
+        public int IdPenjualan { get; set; }
+
+        public int IdBarang { get; set; }
+
+        public double HargaJual { get; set; }
+
+        public double HargaBeli { get; set; }
+
+        public double Jumlah { get; set; }
+
+        public Barang Barang { get; set; }
+
+        public double Total
         {
-            [PrimaryKey("IdDetailPenjualan")]
-            [DbColumn("IdDetailPenjualan")]
-            [ScaffoldColumn(false)]
-            public int IdItem { get; set; }
-
-
-            [DbColumn("IdPenjualan")]
-            public int IdPenjualan { get; set; }
-
-
-            [DbColumn("IdBarang")]
-            public int IdBarang { get; set; }
-
-
-            [DbColumn("IdMontir")]
-            public int IdMontir { get; set; }
-
-
-            [DbColumn("HargaJual")]
-            [Required(ErrorMessage = "Tidak Boleh Kosong")]
-            public double HargaJual { get; set; }
-
-
-            [DbColumn("JenisPenjualan")]
-            public JenisPenjualan TipePenjualan { get; set; }
-
-
-            public BarangDto Barang { get; set; }
-
-            public PenjualanDto Penjualan { get; set; }
-            public MontirDto Montir { get; set; }
+            get
+            {
+                return Jumlah * HargaJual;
+            }
         }
+
     }
 }

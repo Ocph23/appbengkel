@@ -15,6 +15,12 @@ namespace MainWeb.Controllers
         }
 
 
+        public ActionResult ErrorInfo()
+        {
+            return View();
+        }
+
+
 
         public ActionResult NotFound()
         {

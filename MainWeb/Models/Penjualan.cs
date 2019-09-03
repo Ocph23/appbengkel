@@ -8,27 +8,67 @@ using System.Web;
 
 namespace MainWeb.Models
 {
-    [TableName("Penjualan")]
     public class Penjualan
     {
-        [PrimaryKey("IdPenjualan")]
-        [DbColumn("IdPenjualan")]
         [ScaffoldColumn(false)]
         public int IdPenjualan { get; set; }
 
-        [DbColumn("FakturPenjualan")]
+        [Display(Name="Nomor Faktur")]
         public string FakturPenjualan { get; set; }
 
-        [DbColumn("IdPelanggan")]
+        [ScaffoldColumn(false)]
         public int? IdPelanggan { get; set; }
 
-        [DbColumn("TanggalJual")]
+        [Display(Name="Tanggal Jual")]
         public DateTime? TanggalJual { get; set; }
 
-
         public string Pembayaran { get; set; }
-        public PelangganDto Pelanggan { get; set; }
 
-        public List<ItemPenjualanDto> Items { get; set; }
+        public Pelanggan Customer { get; set; } = new Pelanggan();
+
+        public List<ItemPenjualan> Items { get; set; }
+        public List<ItemService> Services { get; set; }
+
+        public double TotalPenjualan
+        {
+            get
+            {
+                if(Items!=null)
+                    return Items.Sum(x => x.HargaJual * x.Jumlah);
+                return 0;
+            }
+        }
+
+        public double TotalService
+        {
+            get
+            {
+                if (Services != null)
+                    return Services.Sum(x => x.Biaya);
+                return 0;
+            }
+        }
+
+        public double TotalHargaBeli
+        {
+            get
+            {
+                if (Services != null)
+                    return Items.Sum(x => x.HargaBeli * x.Jumlah);
+                return 0;
+            }
+        }
+
+        public double Total
+        {
+            get
+            {
+                return TotalService+TotalPenjualan;
+            }
+        }
+
+        public string UserId { get; set; }
+
+
     }
 }

@@ -31,7 +31,6 @@ namespace MainWeb
             cfg.CreateMap<Pelanggan, PelangganDto>();
             cfg.CreateMap<PelangganDto, Pelanggan>();
 
-
             cfg.CreateMap<Montir, MontirDto>();
             cfg.CreateMap<MontirDto, Montir>();
 
@@ -41,12 +40,18 @@ namespace MainWeb
             cfg.CreateMap<ItemPembelian, ItemPembelianDto>();
             cfg.CreateMap<ItemPembelianDto, ItemPembelian>();
 
-            cfg.CreateMap<Penjualan, PenjualanDto>();
+            cfg.CreateMap<Penjualan, PenjualanDto>().ForSourceMember(des => des.UserId, source=>source.DoNotValidate()); ;
             cfg.CreateMap<PenjualanDto, Penjualan>();
 
             cfg.CreateMap<ItemPenjualan, ItemPenjualanDto>();
             cfg.CreateMap<ItemPenjualanDto, ItemPenjualan>();
 
+            cfg.CreateMap<ItemService, ItemServiceDto>();
+            cfg.CreateMap<ItemServiceDto, ItemService>();
+
+
+            cfg.CreateMap<Pelanggan, PelangganDto>();
+            cfg.CreateMap<PelangganDto, Pelanggan>();
 
 
             var mapperConfig = new MapperConfiguration(cfg);

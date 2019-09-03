@@ -1,16 +1,18 @@
 ﻿@model MainWeb.Models.Penjualan
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Create</h2>
 
+<div ng-app="app" ng-controller="PenjualanController" ng-init="Init()">
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
     <div class="form-horizontal">
         <h4>Penjualan</h4>
         <hr />
@@ -18,39 +20,296 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FakturPenjualan, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FakturPenjualan, new { htmlAttributes = new { @class = "form-control" } })
+                <input class="form-control" type="text" id="FakturPenjualan" name="FakturPenjualan" ng-model="data.FakturPenjualan" />
                 @Html.ValidationMessageFor(model => model.FakturPenjualan, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdPelanggan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IdPelanggan, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IdPelanggan, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.TanggalJual, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TanggalJual, new { htmlAttributes = new { @class = "form-control" } })
+                <input class="form-control" type="date" id="TanggalJual" name="TanggalJual" ng-model="data.TanggalJual" />
                 @Html.ValidationMessageFor(model => model.TanggalJual, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            @Html.LabelFor(model => model.Customer.NamaPelanggan, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input class="form-control" type="text" id="NamaPelanggan" name="NamaPelanggan" ng-model="data.Customer.NamaPelanggan" />
+                @Html.ValidationMessageFor(model => model.Customer.NamaPelanggan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Customer.Alamat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input class="form-control" type="text" id="Alamat" name="Alamat" ng-model="data.Customer.Alamat" />
+                @Html.ValidationMessageFor(model => model.Customer.Alamat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        <h2>Barang</h2>
+        <table class="table">
+            <tr>
+                <th>
+                    Kode Barang
+                </th>
+                <th>
+                    Nama Barang
+                </th>
+
+                <th>
+                    Harga Jual
+                </th>
+
+                <th>
+                    Jumlah
+                </th>
+                <th>
+                    Total
+                </th>
+
+                <th>
+                    <a href="#exampleModalCenter" data-target="#exampleModalCenter" data-toggle="modal">Add</a>|
+                </th>
+            </tr>
+
+
+            <tr ng-repeat="item in data.Items">
+                <td>
+                    {{item.Barang.KodeBarang}}
+                </td>
+
+                <td>
+                    {{item.Barang.NamaBarang}}
+                </td>
+
+                <td>
+                    <input style="max-width:200px" type="number" class="form-control" ng-model="item.HargaJual" />
+                </td>
+                <td>
+                    <input style="max-width:100px" type="number" class="form-control" ng-model="item.Jumlah" />
+                </td>
+                <td>
+                    {{item.Jumlah * item.HargaJual|number}}
+                </td>
+                <td>
+                    <a href="" ng-click="Delete(item)">Delete</a>
+                </td>
+            </tr>
+
+        </table>
+        <hr />
+        <h2>Servis</h2>
+        <table class="table">
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Deskripsi Servis
+                </th>
+
+                <th>
+                    Biaya
+                </th>
+                <th>
+                    Montir
+                </th>
+
+                <th>
+                    <a ng-click="AddService()">Add</a>|
+                </th>
+            </tr>
+
+
+            <tr ng-repeat="item in data.Services">
+                <td>
+                    {{$index+1}}
+                </td>
+
+                <td>
+                    <input type="text" class="form-control" ng-model="item.Perbaikan" />
+                </td>
+
+                <td>
+                    <input style="max-width:200px" type="number" class="form-control" ng-model="item.Biaya" />
+                </td>
+                <td>
+                    <select class="form-control" name="IdMontir" id="IdMontir" ng-options="data as data.NamaMontir for data in Montirs track by data.IdMontir" ng-model="item.Montir"></select>
+                </td>
+                <td>
+                    <a href="" ng-click="DeleteService(item)">Delete</a>
+                </td>
+            </tr>
+
+        </table>
+
+      <div >
+          <h4 style="justify-content:flex-end">Total : <span> Rp. {{data.Total|number}}</span></h4>
+      </div>
+
+    </div>
+    }
+<div class="form-group text-right">
+    <button ng-click="Save(data)" class="btn btn-default text-right">Save</button>
+    <a href="/Penjualan/FakturPenjualan/@Model.IdPenjualan" class="btn btn-info text-right">Print</a>
+</div>
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" data-backdrop="false" id="exampleModalCenter" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>
+                                Kode Barang
+                            </th>
+                            <th>
+                                Nama Barang
+                            </th>
+                            <th>
+                                Supplier
+                            </th>
+                            <th>
+                                Harga Beli
+                            </th>
+                            <th>
+                                Harga Jual
+                            </th>
+                            <th>
+                                Stok
+                            </th>
+                        </tr>
+
+
+                        <tr ng-repeat="item in Barangs" ng-dblclick="SelectedItem(item)">
+                            <td>
+                                {{item.KodeBarang}}
+                            </td>
+
+                            <td>
+                                {{item.NamaBarang}}
+                            </td>
+                            <td>
+                                {{item.Kategori.NamaKategori}}
+                            </td>
+                            <td>
+                                {{item.HargaBeli}}
+                            </td>
+                            <td>
+                                {{item.HargaJual}}
+                            </td>
+                            <td>
+                                {{item.Stok}}
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                   
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+<script>
+    angular.module("app", [])
+        .controller("PenjualanController", function ($scope, $http, $q) {
+            $scope.data = {};
+            $scope.data.Items = [];
+
+            $scope.Init = function () {
+                var Id = @Html.Raw(Model.IdPenjualan);
+                $http({
+                    method: "Get",
+                    url: "/api/barang",
+                    dataType: 'json',
+                    headers: { "Content-Type": "application/json" }
+                }).then(function (res) {
+                    $scope.Barangs = res.data;
+                    $http({
+                        method: "Get",
+                        url: "/api/Montir",
+                        dataType: 'json',
+                        headers: { "Content-Type": "application/json" }
+                    }).then(function (res) {
+                        $scope.Montirs = res.data;
+                        $http({
+                            method: "Get",
+                            url: "/api/penjualanapi/" + Id,
+                            dataType: 'json',
+                            headers: { "Content-Type": "application/json" }
+                        }).then(function (res) {
+                            $scope.data = res.data;
+                            $scope.data.TanggalJual = new Date($scope.data.TanggalJual);
+
+
+
+                        }, function (err) {
+                            alert(err);
+                        });
+                    }, function (err) {
+                        alert(err);
+                    });
+
+
+
+                }, function (err) {
+
+                });
+            }
+
+
+            $scope.SelectedItem = function (item) {
+                $("#exampleModalCenter").modal('hide');
+                item.Jumlah = 1;
+                $scope.data.Items.push(item);
+            }
+
+            $scope.Delete = function (item) {
+                var index = $scope.data.Items.indexOf(item);
+                $scope.data.Items.splice(index, 1);
+            }
+            $scope.DeleteService = function (item) {
+                var index = $scope.data.Services.indexOf(item);
+                $scope.data.Services.splice(index, 1);
+            }
+
+            $scope.AddService = function () {
+                 $scope.data.Services.push({Perbaikan:"",Biaya:"",Keterangan:"", IdMontir:null,Montir:null});
+            }
+            $scope.Save = function (data) {
+                var post = $http({
+                    method: "Post",
+                    url: "/api/PenjualanApi",
+                    dataType: 'json',
+                    data: data,
+                    headers: { "Content-Type": "application/json" }
+                }).then(function (res) {
+                    window.location = "/Penjualan";
+                }, function (err) {
+
+                });
+            };
+
+        });
+</script>

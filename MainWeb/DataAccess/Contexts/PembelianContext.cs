@@ -68,12 +68,13 @@ namespace MainWeb.DataAccess.Contexts
                     var result = from a in db.Pembelian.Where(x => x.IdPembelian == Id)
                                  join c in db.Supplier.Select() on a.IdSupplier equals c.IdSupplier
 
-                                 select new Pembelian {
+                                 select new Pembelian { TanggalBeli=a.TanggalBeli, IdSupplier=a.IdSupplier,
                                      Supplier = MapperData.Map<Supplier>(c), FakturPembelian = a.FakturPembelian,
                                      IdPembelian = a.IdPembelian,
                                      Items = (from b in db.DetailPembelian.Where(x=>x.IdPembelian == a.IdPembelian)
                                    join br in db.Barang.Select() on b.IdBarang equals br.IdBarang
-                                   select new ItemPembelian { Barang = MapperData.Map<Barang>(br) }).ToList()
+                                   select new ItemPembelian { HargaBeli=b.HargaBeli, IdPembelian =b.IdPembelian,
+                                        IdBarang=b.IdBarang, IdItem=b.IdItem, Jumlah=b.Jumlah, Barang = MapperData.Map<Barang>(br) }).ToList()
 
 
                                  };
@@ -91,30 +92,85 @@ namespace MainWeb.DataAccess.Contexts
             }
         }
 
-        public Pembelian Insert(Pembelian item)
+        public Pembelian Insert(Pembelian itemx)
         {
-            var data = MapperData.Map<PembelianDto>(item);
+            var data = MapperData.Map<PembelianDto>(itemx);
             using (var db = new OcphDbContext())
             {
                 var trans = db.BeginTransaction();
                 try
                 {
-                    item.IdPembelian = db.Pembelian.InsertAndGetLastID(data);
+                    if(data.IdPembelian<=0)
+                    {
+                        data.IdPembelian = db.Pembelian.InsertAndGetLastID(data);
+                        if (data.IdPembelian <= 0)
+                            throw new SystemException("Data Tidak Tersimpan");
+                        else
+                        {
+                            foreach (var barang in data.Items)
+                            {
+                                barang.IdPembelian = data.IdPembelian;
+                                if (!db.DetailPembelian.Insert(barang))
+                                    throw new SystemException("Data Tidak Tersimpan");
 
-                    if (item.IdPembelian <= 0)
-                        throw new SystemException("Data Tidak Tersimpan");
+                                if(!db.Barang.AddStock(barang.IdBarang, barang.Jumlah))
+                                    throw new SystemException("Data Stok Tidak Tersimpan");
+                            }
+                        }
+                    }
                     else
                     {
-                        foreach (var barang in data.Items)
+                        var updated = db.Pembelian.Update(x=> new { x.FakturPembelian,x.IdSupplier,x.Pembayaran,x.TanggalBeli},
+                           MapperData.Map<PembelianDto>(data),x=>x.IdPembelian== data.IdPembelian);
+                        if (!updated)
+                            throw new SystemException("Data Tidak Tersimpan");
+                        else
                         {
-                            barang.IdPembelian = item.IdPembelian;
-                            if (!db.DetailPembelian.Insert(barang))
-                                throw new SystemException("Data Tidak Tersimpan");
+                            var UpdateOldStock = false;
+                            foreach (var barang in data.Items)
+                            {
+                                var oldData = db.DetailPembelian.Where(x => x.IdItem == barang.IdItem).FirstOrDefault();
+                                if(oldData!=null)
+                                {
+                                    UpdateOldStock = true;
+                                    if (!db.DetailPembelian.Update(x => new { x.Jumlah, x.HargaBeli }, barang, x => x.IdItem == barang.IdItem))
+                                        throw new SystemException("Item Pembelian Gagal Diubah");
+                                }
+                                else
+                                {
+                                    barang.IdPembelian = data.IdPembelian;
+                                    if (!db.DetailPembelian.Insert(barang))
+                                        throw new SystemException("Data Tidak Tersimpan");
+                                    if(!UpdateOldStock)
+                                    {
+                                        if (!db.Barang.AddStock(barang.IdBarang, barang.Jumlah))
+                                            throw new SystemException("Data Stok Tidak Tersimpan");
+                                    }
+                                }
+                            }
+
+                            //Remove Item
+                            foreach (var barang in db.DetailPembelian.Where(x=>x.IdPembelian== data.IdPembelian))
+                            {
+                                if(data.Items.Where(x => x.IdItem == barang.IdItem).Count() <= 0 )
+                                {
+                                    if(!db.DetailPembelian.Delete(x=>x.IdItem==barang.IdItem))
+                                        throw new SystemException("Data Tidak Tersimpan");
+
+                                    UpdateOldStock = true;
+                                }
+                            }
+
+                            if(UpdateOldStock)
+                            {
+                                if(!db.RecoveryStock())
+                                    throw new SystemException("Data Tidak Tersimpan");
+                            }
                         }
                     }
 
                     trans.Commit();
-                    return item;
+                    return MapperData.Map<Pembelian>(data);
                 }
                 catch (Exception ex)
                 {
@@ -148,12 +204,9 @@ namespace MainWeb.DataAccess.Contexts
                 }
                 catch (Exception ex)
                 {
-
                     throw new SystemException(ex.Message);
                 }
-
             }
-
         }
     }
 }

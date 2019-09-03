@@ -8,13 +8,14 @@ using System.Web.Mvc;
 
 namespace MainWeb.Controllers
 {
+    [Authorize]
     public class PenjualanController : Controller
     {
         private PenjualanContext penjualanContext = new PenjualanContext();
         // GET: Penjualan
         public ActionResult Index()
         {
-            return View(penjualanContext.Get());
+            return View();
         }
 
         // GET: Penjualan/Details/5
@@ -55,8 +56,8 @@ namespace MainWeb.Controllers
         // GET: Penjualan/Edit/5
         public ActionResult Edit(int id)
         {
-            var data = this.penjualanContext.GetById(id);
-            return View();
+       //     var data = this.penjualanContext.GetById(id);
+            return View(new Penjualan {  IdPenjualan= id });
         }
 
         // POST: Penjualan/Edit/5
@@ -80,7 +81,7 @@ namespace MainWeb.Controllers
         public ActionResult Delete(int id)
         {
             var data = this.penjualanContext.GetById(id);
-            return RedirectToAction("Index");
+            return View(data);
         }
 
         // POST: Penjualan/Delete/5
@@ -89,14 +90,25 @@ namespace MainWeb.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
+                if (penjualanContext.Delete(id))
+                    return RedirectToAction("Index");
+                throw new SystemException("Data Tidak Terhapus");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return RedirectToAction("Error", "ErrorHandler",ex);
+                //throw new SystemException(ex.Message);
             }
         }
+
+
+
+        public ActionResult FakturPenjualan(int id)
+        {
+            var data = this.penjualanContext.GetById(id);
+            return View(data);
+        }
+
     }
 }

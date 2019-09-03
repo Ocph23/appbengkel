@@ -1,0 +1,133 @@
+﻿@model MainWeb.Models.Penjualan
+
+@{
+    ViewBag.Title = "FakturPenjualan";
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+}
+
+<h2>Faktur Penjualan</h2>
+
+<div>
+    <hr />
+
+    <div class="header">
+        <div class="headerItem">
+            <label>
+                @Html.DisplayNameFor(model => model.FakturPenjualan)
+            </label>
+            : @Html.DisplayFor(model => model.FakturPenjualan)
+        </div>
+
+        <div class="headerItem">
+            <label>
+                @Html.DisplayNameFor(model => model.TanggalJual)
+            </label>
+            : @Html.DisplayFor(model => model.TanggalJual)
+        </div>
+
+        <div class="headerItem">
+            <label>
+                @Html.DisplayNameFor(model => model.Customer)
+            </label>
+            : @Html.DisplayFor(model => model.Customer.NamaPelanggan)
+        </div>
+        <hr />
+
+
+
+    </div>
+
+    <h5>Item Barang</h5>
+    <table class="table">
+        <tr>
+            <th>
+                Kode Barang
+            </th>
+            <th>
+                Nama Barang
+            </th>
+
+            <th>
+                Harga Jual
+            </th>
+
+            <th>
+                Jumlah
+            </th>
+            <th>
+                Total
+            </th>
+        </tr>
+
+
+        @foreach (var item in Model.Items)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Barang.KodeBarang)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Barang.NamaBarang)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.HargaJual)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Jumlah)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total)
+        </td>
+    </tr>
+        }
+
+
+    </table>
+    <hr />
+    <h5>Servis</h5>
+    <table class="table">
+        <tr>
+            <th>
+                Deskripsi Servis
+            </th>
+
+            <th>
+                Biaya
+            </th>
+            <th>
+                Montir
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Services)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Perbaikan)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Biaya)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Montir.NamaMontir)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+    <hr/>
+    <div class="pull-right">
+        <h4 style="justify-content:flex-end">Total : <span> Rp. @Html.DisplayFor(m=>Model.Total)</span></h4>
+    </div>
+
+</div>
+
+
+<script>
+    window.print();
+</script>

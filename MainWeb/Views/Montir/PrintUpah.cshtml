@@ -1,47 +1,38 @@
 ﻿@model MainWeb.Models.Montir
 
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "PrintUpah";
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Upah Montir</h2>
 
-<div ng-app="app" ng-controller="MontriController" ng-init="Init(@Model.IdMontir)">
+
+<div ng-app="app" ng-controller="MontriController" ng-init="Init(@Model.IdMontir, @ViewBag.Bulan)">
     <h5>Montir</h5>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NamaMontir)
-        </dt>
+    <div class="header">
+        <div class="headerItem">
+            <label>
+                @Html.DisplayNameFor(model => model.NamaMontir)
+            </label>
+            : @Html.DisplayFor(model => model.NamaMontir)
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.NamaMontir)
-        </dd>
+        <div class="headerItem">
+            <label>
+                Bulan
+            </label>
+            : {{Bulan.name}} {{Year}}
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Alamat)
-        </dt>
+        <hr />
 
-        <dd>
-            @Html.DisplayFor(model => model.Alamat)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NoTelpon)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NoTelpon)
-        </dd>
-
-    </dl>
+    </div>
 
     <h5>Data Servis</h5>
-    <div class="form-inline">
-        <label style="width:75px; justify-content:flex-start">Bulan</label>
-        <select class="form-control" ng-change="onChangeBulan()" ng-options="item as item.name for item in Bulans track by item.value" ng-model="Bulan"></select>
-    </div>
     <table class="table">
         <tr>
             <th>#</th>
@@ -88,12 +79,6 @@
 
     </table>
 
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.IdMontir }) |
-        <a  ng-click="print(@Model.IdMontir, Bulan.value)">Print</a>|
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-
 
 </div>
 
@@ -102,6 +87,7 @@
         .controller("MontriController", function ($scope, $http) {
             $scope.Bulan = {};
             $scope.Datas = [];
+            $scope.Year = new Date().getFullYear();
             $scope.Bulans =
                 [
                 { name: "Januari", value: 0 },
@@ -120,22 +106,33 @@
 
             $scope.onChangeBulan = function () {
                  $scope.Datas = [];
-                $scope.source.forEach(x => {
-                    var tgl = new Date(x.TanggalFaktur);
-                    if (tgl.getMonth() == $scope.Bulan.value) {
-                        $scope.Datas.push(x);
-                    }
-                });
+               
             }
 
-            $scope.Init = function (id) {
+            $scope.Init = function (id, bulan) {
+
+
+                $scope.Bulans.forEach(x => {
+                    if (x.value == bulan)
+                        $scope.Bulan = x;
+                })
+
                 $http(
                     {
                         url: "/api/montir/"+id,
                         method: "Get",
                     }
                 ).then(x => {
-                    $scope.source = x.data;
+                    x.data.forEach(x => {
+                    var tgl = new Date(x.TanggalFaktur);
+                    if (tgl.getMonth() == $scope.Bulan.value && tgl.getFullYear() == $scope.Year) {
+                        $scope.Datas.push(x);
+                    }
+                    });
+
+                    setTimeout(x => {
+                        window.print();
+                    }, 1500);
                 });
             }
 
@@ -147,11 +144,6 @@
                 });
 
                 return d;
-            }
-
-
-            $scope.print = function (id, bulan) {
-                window.location.href = "/Montir/PrintUpah?id=1&&bulan=" + bulan;
             }
         });
 </script>

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MainWeb.Controllers
 {
+    [Authorize]
     public class PembelianController : Controller
     {
         private SupplierContext supplierContext = new SupplierContext();
@@ -95,6 +96,12 @@ namespace MainWeb.Controllers
             {
                 throw new SystemException(ex.Message);
             }
+        }
+
+        public ActionResult FakturPembelian(int id)
+        {
+            var data = this.context.GetById(id);
+            return View(data);
         }
     }
 }

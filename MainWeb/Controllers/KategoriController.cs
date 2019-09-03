@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MainWeb.Controllers
 {
+    [Authorize]
     public class KategoriController : Controller
     {
 

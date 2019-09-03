@@ -187,7 +187,9 @@
   <ItemGroup>
     <Compile Include="AccountDbContext.cs" />
     <Compile Include="Api\BarangController.cs" />
-    <Compile Include="Api\PembelianController.cs" />
+    <Compile Include="Api\MontirController.cs" />
+    <Compile Include="Api\PembelianApiController.cs" />
+    <Compile Include="Api\PenjualanApiController.cs" />
     <Compile Include="Api\SupplierController.cs" />
     <Compile Include="App_Start\ApplicationOAuthProvider.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -220,6 +222,7 @@
     <Compile Include="DataAccess\Dto\BarangDTO.cs" />
     <Compile Include="DataAccess\Dto\ItemPembelianDto.cs" />
     <Compile Include="DataAccess\Dto\ItemPenjualanDto.cs" />
+    <Compile Include="DataAccess\Dto\ItemServiceDto.cs" />
     <Compile Include="DataAccess\Dto\KategoriDto.cs" />
     <Compile Include="DataAccess\Dto\MontirDto.cs" />
     <Compile Include="DataAccess\Dto\PelangganDto.cs" />
@@ -236,9 +239,11 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ItemPembelian.cs" />
     <Compile Include="Models\ItemPenjualan.cs" />
+    <Compile Include="Models\ItemService.cs" />
     <Compile Include="Models\Kategori.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Montir.cs" />
+    <Compile Include="Models\MontirServiceModel.cs" />
     <Compile Include="Models\Pelanggan.cs" />
     <Compile Include="Models\Pembelian.cs" />
     <Compile Include="Models\Penjualan.cs" />
@@ -256,13 +261,23 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="node_modules\mdbootstrap\css\bootstrap.css" />
+    <Content Include="node_modules\mdbootstrap\css\bootstrap.min.css" />
+    <Content Include="node_modules\mdbootstrap\css\mdb.css" />
+    <Content Include="node_modules\mdbootstrap\js\bootstrap.js" />
+    <Content Include="node_modules\mdbootstrap\js\mdb.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular\angular-route.js" />
+    <Content Include="Scripts\angular\angular-route.min.js" />
+    <Content Include="Scripts\angular\angular.js" />
+    <Content Include="Scripts\angular\angular.min.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="libman.json" />
     <Content Include="Scripts\angular.min.js.map" />
+    <None Include="Properties\PublishProfiles\bengkel - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\bengkel - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -275,6 +290,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Content\style5.css" />
+    <Content Include="Views\Penjualan\penjualan.htm" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -317,7 +333,6 @@
     <Content Include="Views\Montir\Index.cshtml" />
     <Content Include="Views\Pelanggan\Create.cshtml" />
     <Content Include="Views\Pelanggan\Index.cshtml" />
-    <Content Include="Views\Penjualan\Create.cshtml" />
     <Content Include="Views\Penjualan\Index.cshtml" />
     <Content Include="Views\Supplier\Create.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
@@ -345,6 +360,13 @@
     <Content Include="Views\Pembelian\Create.cshtml" />
     <Content Include="Views\Pembelian\Delete.cshtml" />
     <Content Include="Views\Pembelian\Edit.cshtml" />
+    <Content Include="Views\Penjualan\Create.cshtml" />
+    <Content Include="Views\Shared\_LayoutPrint.cshtml" />
+    <Content Include="Views\Penjualan\FakturPenjualan.cshtml" />
+    <Content Include="Views\Pembelian\FakturPembelian.cshtml" />
+    <Content Include="Views\Penjualan\Delete.cshtml" />
+    <Content Include="Views\ErrorHandler\ErrorInfo.cshtml" />
+    <Content Include="Views\Montir\PrintUpah.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

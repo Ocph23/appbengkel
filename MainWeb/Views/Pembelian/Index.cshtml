@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Data Transaksi Pembelian</h2>
 <div ng-app="app" ng-controller="PembelianController" ng-init="Init()">
 
     <p>
@@ -45,8 +45,8 @@
             </td>
             <td>
                 <a href="/Pembelian/Edit/{{item.IdPembelian}}">Edit</a>|
-                <a href="/Pembelian/Details/{{item.IdPembelian}}">Details</a>|
-                <a href="/Pembelian/Delete/{{item.IdPembelian}}">Delete</a>
+                <a href="/Pembelian/Delete/{{item.IdPembelian}}">Delete</a>|
+                <a href="/Pembelian/FakturPembelian/{{item.IdPembelian}}">Print</a>
             </td>
         </tr>
 
@@ -65,7 +65,7 @@
             $scope.Init = function () {
                 var post = $http({
                     method: "Get",
-                    url: "/api/pembelian",
+                    url: "/api/pembelianapi",
                     dataType: 'json',
                     headers: { "Content-Type": "application/json" }
                 });
